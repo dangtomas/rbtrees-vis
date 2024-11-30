@@ -1,7 +1,7 @@
-import { RED, BLACK, createNode, colorFlip } from "./utils.js";
-import { RB23Tree, leftRotate23, rightRotate23 } from "./paritySeeking23Rb.js";
+import { RED, BLACK, RBTree, createNode, colorFlip } from "./utils.js";
+import { leftRotate23, rightRotate23 } from "./paritySeeking23Rb.js";
 
-export class RB234Tree extends RB23Tree {}
+export class RB234Tree extends RBTree {}
 
 export function rb234Insert(T, key) {
 	const x = createNode(T, key);

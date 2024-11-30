@@ -1,12 +1,9 @@
 import { RED, BLACK } from "./utils.js";
 import { ClassicRBTree, rbInsert, rbDelete } from "./classicRb.js";
 import { LLRBTree, llrbInsert, llrbDelete } from "./llrb.js";
-import {
-	RB23Tree,
-	rb23Insert,
-	paritySeekingDelete,
-} from "./paritySeeking23Rb.js";
+import { RB23Tree, rb23Insert } from "./paritySeeking23Rb.js";
 import { RB234Tree, rb234Insert } from "./paritySeeking234Rb.js";
+import { paritySeekingDelete } from "./paritySeekingDelete.js";
 
 function assert(value) {
 	if (!value) {
