@@ -1,7 +1,12 @@
-import { RED, BLACK, RBTree, createNode, colorFlip } from "./utils.js";
-import { leftRotate23, rightRotate23 } from "./paritySeeking23Rb.js";
+import { RED, BLACK, createNode, colorFlip } from "./utils.js";
+import {
+	ParitySeekingRBTree,
+	leftRotate23,
+	rightRotate23,
+	paritySeekingDelete,
+} from "./paritySeekingDelete.js";
 
-export class RB234Tree extends RBTree {}
+export class RB234Tree extends ParitySeekingRBTree {}
 
 export function rb234Insert(T, key) {
 	const x = createNode(T, key);
@@ -55,4 +60,8 @@ function rb234InsertFixup(T, x) {
 		}
 	}
 	T.root.color = BLACK;
+}
+
+export function rb234Delete(T, key) {
+	paritySeekingDelete(T, key);
 }

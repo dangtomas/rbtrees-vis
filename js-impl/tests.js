@@ -1,9 +1,8 @@
 import { RED, BLACK } from "./utils.js";
 import { ClassicRBTree, rbInsert, rbDelete } from "./classicRb.js";
 import { LLRBTree, llrbInsert, llrbDelete } from "./llrb.js";
-import { RB23Tree, rb23Insert } from "./paritySeeking23Rb.js";
-import { RB234Tree, rb234Insert } from "./paritySeeking234Rb.js";
-import { paritySeekingDelete } from "./paritySeekingDelete.js";
+import { RB23Tree, rb23Insert, rb23Delete } from "./paritySeeking23Rb.js";
+import { RB234Tree, rb234Insert, rb234Delete } from "./paritySeeking234Rb.js";
 
 function assert(value) {
 	if (!value) {
@@ -161,31 +160,31 @@ function rb23Test() {
 	assert(T.root.left.color == BLACK);
 	assert(T.root.right.color == BLACK);
 
-	paritySeekingDelete(T, 52);
+	rb23Delete(T, 52);
 	assert(T.root.key == 69);
 	assert(T.root.color == BLACK);
 	assert(T.root.right.color == BLACK);
 	assert(T.root.right.right.color == RED);
 	assert(T.root.left.color == RED);
 
-	paritySeekingDelete(T, 77);
+	rb23Delete(T, 77);
 	assert(T.root.key == 69);
 	assert(T.root.color == BLACK);
 	assert(T.root.right.color == BLACK);
 	assert(T.root.left.color == RED);
 
-	paritySeekingDelete(T, 48);
+	rb23Delete(T, 48);
 	assert(T.root.color == BLACK);
 	assert(T.root.left.color == BLACK);
 	assert(T.root.left.left.color == RED);
 
-	paritySeekingDelete(T, 99);
+	rb23Delete(T, 99);
 	assert(T.root.key == 44);
 	assert(T.root.color == BLACK);
 	assert(T.root.left.color == BLACK);
 	assert(T.root.right.color == BLACK);
 
-	paritySeekingDelete(T, 69);
+	rb23Delete(T, 69);
 	assert(T.root.left.color == RED);
 
 	console.log("2-3 RBTree - OK");
@@ -222,17 +221,17 @@ function rb234Test() {
 	assert(T.root.left.left.color == BLACK);
 	assert(T.root.left.right.color == BLACK);
 
-	paritySeekingDelete(T, 77);
+	rb234Delete(T, 77);
 	assert(T.root.right.key == 36);
 	assert(T.root.right.color == RED);
 	assert(T.root.left.color == BLACK);
 	assert(T.root.color == BLACK);
 
-	paritySeekingDelete(T, 25);
+	rb234Delete(T, 25);
 	assert(T.root.right.color == BLACK);
 	assert(T.root.right.right.color == RED);
 
-	paritySeekingDelete(T, 9);
+	rb234Delete(T, 9);
 	assert(T.root.key == 36);
 	assert(T.root.color == BLACK);
 	assert(T.root.left.key == 24);

@@ -1,5 +1,53 @@
-import { RED, BLACK, searchNode, minimum, rbTransplant } from "./utils.js";
-import { leftRotate23, rightRotate23 } from "./paritySeeking23Rb.js";
+import {
+	RED,
+	BLACK,
+	RBTree,
+	searchNode,
+	minimum,
+	rbTransplant,
+} from "./utils.js";
+
+export class ParitySeekingRBTree extends RBTree {}
+
+export function leftRotate23(T, x) {
+	const y = x.right;
+	x.right = y.left;
+	if (y.left !== T.NIL) {
+		y.left.p = x;
+	}
+	y.p = x.p;
+	if (x.p === T.NIL) {
+		T.root = y;
+	} else if (x === x.p.left) {
+		x.p.left = y;
+	} else {
+		x.p.right = y;
+	}
+	y.left = x;
+	x.p = y;
+	y.color = x.color;
+	x.color = RED;
+}
+
+export function rightRotate23(T, x) {
+	const y = x.left;
+	x.left = y.right;
+	if (y.right !== T.NIL) {
+		y.right.p = x;
+	}
+	y.p = x.p;
+	if (x.p === T.NIL) {
+		T.root = y;
+	} else if (x === x.p.left) {
+		x.p.left = y;
+	} else {
+		x.p.right = y;
+	}
+	y.right = x;
+	x.p = y;
+	y.color = x.color;
+	x.color = RED;
+}
 
 export function paritySeekingDelete(T, key) {
 	const z = searchNode(T, key);
