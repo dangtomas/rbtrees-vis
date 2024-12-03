@@ -5,9 +5,58 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Red Black Trees Visualisation</title>
 		<link rel="stylesheet" href="styles.css" />
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.23.0/cytoscape.min.js"></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+			rel="stylesheet" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.30.4/cytoscape.min.js"></script>
 	</head>
 	<body>
-		<h1>Red-Black Trees Visualisation</h1>
+		<div id="header">
+			<h1>Red-Black Trees Visualisation</h1>
+			<div>
+				<button id="single-tree">Single tree variant</button>
+				<button id="side-to-side" class="active-button">
+					Side to side
+				</button>
+			</div>
+		</div>
+		<div id="tree-variant-selectors">
+			<select id="variant1-selector">
+				<option value="classic-rb" selected>Classic RB Trees</option>
+				<option value="llrb">LLRB Trees</option>
+				<option value="parity-seeking-2-3rb">
+					Parity-Seeking 2-3 RB Trees
+				</option>
+				<option value="parity-seeking-2-3-4rb">
+					Parity-Seeking 2-3-4 RB Trees
+				</option>
+			</select>
+			<select id="variant2-selector">
+				<option value="classic-rb">Classic RB Trees</option>
+				<option value="llrb" selected>LLRB Trees</option>
+				<option value="parity-seeking-2-3rb">
+					Parity-Seeking 2-3 RB Trees
+				</option>
+				<option value="parity-seeking-2-3-4rb">
+					Parity-Seeking 2-3-4 RB Trees
+				</option>
+			</select>
+		</div>
+		<div id="wrapper">
+			<div class="tree-wrap" id="classic-rb" style="order: 1"></div>
+			<div class="tree-wrap" id="llrb" style="order: 2"></div>
+			<div
+				class="tree-wrap"
+				id="parity-seeking-2-3rb"
+				style="display: none"></div>
+			<div
+				class="tree-wrap"
+				id="parity-seeking-2-3-4rb"
+				style="display: none"></div>
+		</div>
+		<script src="layoutScript.js"></script>
+		<script src="cyScript.js"></script>
 	</body>
 </html>
