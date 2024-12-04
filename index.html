@@ -11,6 +11,8 @@
 			href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
 			rel="stylesheet" />
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.30.4/cytoscape.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/dagre@0.8.5/dist/dagre.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.5.0/cytoscape-dagre.min.js"></script>
 	</head>
 	<body>
 		<div id="header">
@@ -57,6 +59,6 @@
 				style="display: none"></div>
 		</div>
 		<script src="layoutScript.js"></script>
-		<script src="cyScript.js"></script>
+		<script type="module" src="cyScript.js"></script>
 	</body>
 </html>
