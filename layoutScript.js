@@ -35,7 +35,9 @@ function showVariantDiv(variant, order) {
 
 function handleVariantChange(selector) {
 	if (variant1Selector.value === variant2Selector.value && sideToSide) {
-		alert("Tato varianta se již zobrazuje, zkus vybrat jinou.");
+		alert(
+			"This variant is already being shown, try choosing a different one."
+		);
 		if (selector === 1) {
 			variant1Selector.value = variant1Current;
 		} else {

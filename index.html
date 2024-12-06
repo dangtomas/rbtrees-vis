@@ -19,44 +19,36 @@
 			<h1>Red-Black Trees Visualisation</h1>
 			<div>
 				<button id="single-tree">Single tree variant</button>
-				<button id="side-to-side" class="active-button">
-					Side to side
-				</button>
+				<button id="side-to-side" class="active-button">Side to side</button>
 			</div>
 		</div>
 		<div id="tree-variant-selectors">
 			<select id="variant1-selector">
 				<option value="classic-rb" selected>Classic RB Trees</option>
 				<option value="llrb">LLRB Trees</option>
-				<option value="parity-seeking-2-3rb">
-					Parity-Seeking 2-3 RB Trees
-				</option>
-				<option value="parity-seeking-2-3-4rb">
-					Parity-Seeking 2-3-4 RB Trees
-				</option>
+				<option value="parity-seeking-2-3rb">Parity-Seeking 2-3 RB Trees</option>
+				<option value="parity-seeking-2-3-4rb">Parity-Seeking 2-3-4 RB Trees</option>
 			</select>
 			<select id="variant2-selector">
 				<option value="classic-rb">Classic RB Trees</option>
 				<option value="llrb" selected>LLRB Trees</option>
-				<option value="parity-seeking-2-3rb">
-					Parity-Seeking 2-3 RB Trees
-				</option>
-				<option value="parity-seeking-2-3-4rb">
-					Parity-Seeking 2-3-4 RB Trees
-				</option>
+				<option value="parity-seeking-2-3rb">Parity-Seeking 2-3 RB Trees</option>
+				<option value="parity-seeking-2-3-4rb">Parity-Seeking 2-3-4 RB Trees</option>
 			</select>
 		</div>
 		<div id="wrapper">
 			<div class="tree-wrap" id="classic-rb" style="order: 1"></div>
 			<div class="tree-wrap" id="llrb" style="order: 2"></div>
-			<div
-				class="tree-wrap"
-				id="parity-seeking-2-3rb"
-				style="display: none"></div>
-			<div
-				class="tree-wrap"
-				id="parity-seeking-2-3-4rb"
-				style="display: none"></div>
+			<div class="tree-wrap" id="parity-seeking-2-3rb" style="display: none"></div>
+			<div class="tree-wrap" id="parity-seeking-2-3-4rb" style="display: none"></div>
+		</div>
+		<div id="buttons-wrap">
+			<input id="value-input" type="text" />
+			<button id="insert-button">Insert</button>
+			<button id="delete-button">Delete</button>
+			<button id="reset-button">Reset trees</button>
+			<label for="show-nil">Show leaves </label>
+			<input id="show-nil" type="checkbox" checked />
 		</div>
 		<script src="layoutScript.js"></script>
 		<script type="module" src="cyScript.js"></script>

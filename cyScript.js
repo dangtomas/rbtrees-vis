@@ -1,15 +1,17 @@
-import { RED, BLACK } from "./js-impl/utils.js";
+import { RED, searchNode } from "./js-impl/utils.js";
 import { ClassicRBTree, rbInsert, rbDelete } from "./js-impl/classicRb.js";
 import { LLRBTree, llrbInsert, llrbDelete } from "./js-impl/llrb.js";
+import { RB23Tree, rb23Insert, rb23Delete } from "./js-impl/paritySeeking23Rb.js";
+import { RB234Tree, rb234Insert, rb234Delete } from "./js-impl/paritySeeking234Rb.js";
 
-const style = [
+const cyElementsStyle = [
 	{
 		selector: "node",
 		style: {
 			label: "data(label)",
 			textValign: "center",
 			textHalign: "center",
-			color: "#fff",
+			color: "white",
 			width: "40px",
 			height: "40px",
 			fontSize: "20px",
@@ -19,7 +21,7 @@ const style = [
 	{
 		selector: '[type = "black"]',
 		style: {
-			backgroundColor: "#000",
+			backgroundColor: "black",
 		},
 	},
 
@@ -44,15 +46,65 @@ const style = [
 		selector: "edge",
 		style: {
 			width: 2,
-			"line-color": "#000",
-			"curve-style": "bezier",
-			"target-arrow-color": "#000",
-			"target-arrow-shape": "triangle",
+			lineColor: "black",
+			curveStyle: "bezier",
+			targetArrowColor: "black",
+			targetArrowShape: "triangle",
+		},
+	},
+
+	{
+		selector: '[type = "toNil"]',
+		style: {
+			lineColor: "black",
+			targetArrowColor: "black",
 		},
 	},
 ];
 
-function visualizeTree(T, x, cy, pid, isLeft) {
+const allVariantsInfo = [
+	{
+		T: new ClassicRBTree(),
+		cy: cytoscape({
+			container: document.getElementById("classic-rb"),
+			style: cyElementsStyle,
+		}),
+		insert: rbInsert,
+		delete: rbDelete,
+	},
+	{
+		T: new LLRBTree(),
+		cy: cytoscape({
+			container: document.getElementById("llrb"),
+			style: cyElementsStyle,
+		}),
+		insert: llrbInsert,
+		delete: llrbDelete,
+	},
+	{
+		T: new RB23Tree(),
+		cy: cytoscape({
+			container: document.getElementById("parity-seeking-2-3rb"),
+			style: cyElementsStyle,
+		}),
+		insert: rb23Insert,
+		delete: rb23Delete,
+	},
+	{
+		T: new RB234Tree(),
+		cy: cytoscape({
+			container: document.getElementById("parity-seeking-2-3-4rb"),
+			style: cyElementsStyle,
+		}),
+		insert: rb234Insert,
+		delete: rb234Delete,
+	},
+];
+
+function addTreeToCy(T, x, cy, pid, isLeft) {
+	if (T.root === T.NIL) {
+		return;
+	}
 	const id =
 		x === T.NIL
 			? pid === null
@@ -65,6 +117,7 @@ function visualizeTree(T, x, cy, pid, isLeft) {
 			id,
 			label: x === T.NIL ? "NIL" : x.key,
 			type: x === T.NIL ? "nil" : x.color === RED ? "red" : "black",
+			p: pid === null ? "null" : pid
 		},
 		grabbable: false,
 	});
@@ -74,25 +127,96 @@ function visualizeTree(T, x, cy, pid, isLeft) {
 			data: {
 				source: pid,
 				target: id,
+				type: x === T.NIL ? "toNil" : "normal",
 			},
 		});
 	}
 	if (x !== T.NIL) {
-		visualizeTree(T, x.left, cy, id, true);
-		visualizeTree(T, x.right, cy, id, false);
+		addTreeToCy(T, x.left, cy, id, true);
+		addTreeToCy(T, x.right, cy, id, false);
 	}
 }
 
-const cyClassicRb = cytoscape({
-	container: document.getElementById("classic-rb"),
-	style,
-});
-
-let T = new ClassicRBTree();
-for (let i = 0; i < 20; i++) {
-	rbInsert(T, i);
+function visualizeAllTrees() {
+	allVariantsInfo.forEach((v) => {
+		v.cy.elements().remove();
+		addTreeToCy(v.T, v.T.root, v.cy, null, null);
+		v.cy.layout({ name: "dagre" }).run();
+		v.cy.nodes('[type = "nil"]').forEach(n => {
+			const parent = v.cy.getElementById(n.data("p"));
+			const id = n.data("id");
+			n.position({
+				x: parent.position("x") + (id.startsWith("l") ? -40 : 40),
+				y: parent.position("y") + 80
+			})
+		})
+	});
 }
 
-visualizeTree(T, T.root, cyClassicRb, null, null);
+const valueInput = document.getElementById("value-input");
+const deleteButton = document.getElementById("delete-button");
+const insertButton = document.getElementById("insert-button");
 
-cyClassicRb.layout({ name: "dagre" }).run();
+deleteButton.addEventListener("click", () => {
+	if (valueInput.value === "") {
+		alert("Enter a value.")
+		return;
+	}
+	const key = Number(valueInput.value);
+	if (isNaN(key)) {
+		alert("Enter a valid number.");
+	} else if (
+		searchNode(allVariantsInfo[0].T, key) === allVariantsInfo[0].T.NIL
+	) {
+		alert("Node with such key doesn't exist in the tree.");
+	} else {
+		allVariantsInfo.forEach((v) => v.delete(v.T, key));
+		visualizeAllTrees();
+	}
+	valueInput.value = "";
+});
+
+insertButton.addEventListener("click", () => {
+	if (valueInput.value === "") {
+		alert("Enter a value.")
+		return;
+	}
+	const key = Number(valueInput.value);
+	if (isNaN(key)) {
+		alert("Enter a valid number.");
+	} else if (
+		searchNode(allVariantsInfo[0].T, key) !== allVariantsInfo[0].T.NIL
+	) {
+		alert("Node with such key already exists in the tree.");
+	} else {
+		allVariantsInfo.forEach((v) => v.insert(v.T, key));
+		visualizeAllTrees();
+	}
+	valueInput.value = "";
+});
+
+const resetButton = document.getElementById("reset-button");
+resetButton.addEventListener("click", () => {
+	allVariantsInfo.forEach(v => {
+		v.T.root = v.T.NIL;
+		visualizeAllTrees();
+	})
+})
+
+const showLeavesCheckbox = document.getElementById("show-nil");
+showLeavesCheckbox.addEventListener("change", () => {
+	const checked = showLeavesCheckbox.checked;
+	allVariantsInfo.forEach((v) => {
+		v.cy
+			.style()
+			.selector('[type = "nil"]')
+			.style({ color: checked ? "black" : "white" })
+			.selector('[type = "toNil"]')
+			.style({
+				lineColor: checked ? "black" : "white",
+				targetArrowColor: checked ? "black" : "white",
+			})
+			.update();
+	});
+});
+

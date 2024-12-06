@@ -67,6 +67,47 @@ select {
 	width: 50%;
 }
 
+#buttons-wrap {
+	display: flex;
+	width: 95vw;
+	margin: auto;
+	justify-content: center;
+	padding: 25px;
+	align-items: center;
+}
+
+#buttons-wrap button {
+	background-color: #d7e3f5;
+	font-size: 25px;
+	border-radius: 7px;
+	padding: 5px 10px;
+	cursor: pointer;
+	margin-left: 10px;
+}
+
+#buttons-wrap input[type="text"] {
+	padding: 5px 10px;
+}
+
+#buttons-wrap button:hover {
+	background-color: black;
+	color: white;
+}
+
+#buttons-wrap label {
+	font-size: 25px;
+	padding: 0 10px 0 30px;
+}
+
+#buttons-wrap input[type="checkbox"] {
+	width: 30px;
+	height: 30px;
+}
+
+#value-input {
+	font-size: 25px;
+}
+
 @media only screen and (max-width: 1300px) {
 	#wrapper {
 		flex-direction: column;
