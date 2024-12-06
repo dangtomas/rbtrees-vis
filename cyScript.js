@@ -141,13 +141,13 @@ function visualizeAllTrees() {
 	allVariantsInfo.forEach((v) => {
 		v.cy.elements().remove();
 		addTreeToCy(v.T, v.T.root, v.cy, null, null);
-		v.cy.layout({ name: "dagre" }).run();
+		v.cy.layout({ name: "dagre", rankSep: 45, nodeSep: 40 }).run();
 		v.cy.nodes('[type = "nil"]').forEach(n => {
 			const parent = v.cy.getElementById(n.data("p"));
 			const id = n.data("id");
 			n.position({
-				x: parent.position("x") + (id.startsWith("l") ? -40 : 40),
-				y: parent.position("y") + 80
+				x: parent.position("x") + (id.startsWith("l") ? -35 : 35),
+				y: parent.position("y") + 90
 			})
 		})
 	});

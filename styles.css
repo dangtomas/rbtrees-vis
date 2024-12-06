@@ -7,25 +7,26 @@
 
 #header {
 	display: flex;
-	width: 95vw;
-	margin: auto;
 	align-items: center;
 	justify-content: space-between;
-	margin-bottom: 20px;
 	width: 100%;
-	padding: 25px 30px;
-	border-bottom: 2px solid black;
+	margin: 0 auto 12px;
+	padding: 16px 20px;
 	background-color: #d7e3f5;
+}
+
+#header h1 {
+	font-size: 24px;
 }
 
 #header button {
 	background-color: white;
-	font-size: 25px;
-	cursor: pointer;
+	font-size: 20px;
+	padding: 4px 18px;
+	margin: 0 8px;
 	border: none;
-	padding: 5px 10px;
-	margin: 0 10px;
 	border-radius: 7px;
+	cursor: pointer;
 }
 
 #header button:hover {
@@ -38,27 +39,27 @@
 }
 
 #tree-variant-selectors {
-	width: 95vw;
 	display: flex;
 	justify-content: space-around;
+	width: 95vw;
 	margin: auto;
 }
 
 select {
-	font-size: 25px;
-	margin: 20px 0;
-	padding: 5px;
-	border-radius: 10px;
+	font-size: 20px;
+	margin: 12px 0;
+	padding: 4px;
+	border-radius: 6px;
 }
 
 #wrapper {
+	display: flex;
 	width: 95vw;
+	height: 75vh;
 	margin: auto;
 	border: 2px solid black;
 	border-radius: 15px;
-	height: 70vh;
-	display: flex;
-	background: linear-gradient(#000, #000) no-repeat center/1px 100%;
+	background: linear-gradient(#000, #000) no-repeat center/2px 100%;
 	/* https://stackoverflow.com/questions/1179928/how-can-i-put-a-vertical-line-down-the-center-of-a-div */
 }
 
@@ -69,24 +70,26 @@ select {
 
 #buttons-wrap {
 	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 95vw;
 	margin: auto;
-	justify-content: center;
 	padding: 25px;
-	align-items: center;
 }
 
 #buttons-wrap button {
 	background-color: #d7e3f5;
-	font-size: 25px;
-	border-radius: 7px;
-	padding: 5px 10px;
-	cursor: pointer;
+	font-size: 20px;
 	margin-left: 10px;
+	padding: 5px 10px;
+	border: none;
+	border-radius: 7px;
+	cursor: pointer;
 }
 
 #buttons-wrap input[type="text"] {
-	padding: 5px 10px;
+	font-size: 20px;
+	padding: 4px 8px;
 }
 
 #buttons-wrap button:hover {
@@ -95,8 +98,8 @@ select {
 }
 
 #buttons-wrap label {
-	font-size: 25px;
-	padding: 0 10px 0 30px;
+	font-size: 20px;
+	padding: 0 8px 0 24px;
 }
 
 #buttons-wrap input[type="checkbox"] {
@@ -104,9 +107,6 @@ select {
 	height: 30px;
 }
 
-#value-input {
-	font-size: 25px;
-}
 
 @media only screen and (max-width: 1300px) {
 	#wrapper {
