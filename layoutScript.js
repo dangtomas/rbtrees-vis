@@ -7,30 +7,47 @@ const singleTreeButton = document.getElementById("single-tree");
 const sideToSideButton = document.getElementById("side-to-side");
 let sideToSide = true;
 
-const wrapper = document.getElementById("wrapper");
+const variantWrappers = [
+	document.getElementById("tree-wrapper"),
+	document.getElementById("step-descriptions-wrapper")
+]
 
-function getVariantDiv(variant) {
+function getVariantDivs(variant) {
 	switch (variant) {
 		case "classic-rb":
-			return document.getElementById("classic-rb");
+			return [
+				document.getElementById("classic-rb"),
+				document.getElementById("classic-rb-sd")
+			];
 		case "llrb":
-			return document.getElementById("llrb");
+			return [
+				document.getElementById("llrb"),
+				document.getElementById("llrb-sd")
+			];
 		case "parity-seeking-2-3rb":
-			return document.getElementById("parity-seeking-2-3rb");
+			return [
+				document.getElementById("parity-seeking-2-3rb"), 
+				document.getElementById("parity-seeking-2-3rb-sd")
+			];
 		case "parity-seeking-2-3-4rb":
-			return document.getElementById("parity-seeking-2-3-4rb");
+			return [
+				document.getElementById("parity-seeking-2-3-4rb"),
+				document.getElementById("parity-seeking-2-3-4rb-sd")
+			];
 	}
 }
 
-function hideVariantDiv(variant, order) {
-	const toHideDiv = getVariantDiv(variant);
-	toHideDiv.style.display = "none";
+function hideVariantDivs(variant) {
+	const toHideDivs = getVariantDivs(variant);
+	toHideDivs.forEach((div) => div.style.display = "none")
 }
 
-function showVariantDiv(variant, order) {
-	let toShowDiv = getVariantDiv(variant);
-	toShowDiv.style.display = "block";
-	toShowDiv.style.order = order;
+function showVariantDivs(variant, order) {
+	const toShowDivs = getVariantDivs(variant);
+	toShowDivs.forEach((div) => {
+		div.style.display = "block";
+		div.style.order = order
+	})
 }
 
 function handleVariantChange(selector) {
@@ -44,11 +61,10 @@ function handleVariantChange(selector) {
 			variant2Selector.value = variant2Current;
 		}
 	} else {
-		hideVariantDiv(
-			selector === 1 ? variant1Current : variant2Current,
-			selector
+		hideVariantDivs(
+			selector === 1 ? variant1Current : variant2Current
 		);
-		showVariantDiv(
+		showVariantDivs(
 			selector === 1 ? variant1Selector.value : variant2Selector.value,
 			selector
 		);
@@ -73,11 +89,11 @@ singleTreeButton.addEventListener("click", () => {
 		return;
 	} else {
 		sideToSide = false;
-		hideVariantDiv(variant2Current);
+		hideVariantDivs(variant2Current);
 		variant2Selector.style.display = "none";
 		sideToSideButton.classList.remove("active-button");
 		singleTreeButton.classList.add("active-button");
-		wrapper.style.background = "none";
+		variantWrappers.forEach((w) => w.style.background = "none");
 	}
 });
 
@@ -86,11 +102,11 @@ sideToSideButton.addEventListener("click", () => {
 		return;
 	} else {
 		sideToSide = true;
-		showVariantDiv(variant2Current, 2);
+		showVariantDivs(variant2Current, 2);
 		variant2Selector.style.display = "block";
 		singleTreeButton.classList.remove("active-button");
 		sideToSideButton.classList.add("active-button");
-		wrapper.style.background =
-			"linear-gradient(#000, #000) no-repeat center/1px 100%";
+		variantWrappers.forEach((w) => w.style.background = 
+			"linear-gradient(#000, #000) no-repeat center/1px 100%")
 	}
 });

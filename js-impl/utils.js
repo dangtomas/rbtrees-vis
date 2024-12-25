@@ -64,3 +64,22 @@ export function rbTransplant(T, u, v) {
 	}
 	v.p = u.p;
 }
+
+export function copyTree(T) {
+	const newT = new RBTree();
+	newT.root = copyTreeRec(T, T.root, newT, newT.NIL);
+	return newT;
+}
+
+function copyTreeRec(T, node, newT, p) {
+	if (node === T.NIL) {
+		return newT.NIL;
+	}
+	const newNode = new RBNode(node.key);
+	newNode.p = p;
+	newNode.color = node.color;
+	newNode.left = copyTreeRec(T, node.left, newT, newNode);
+	newNode.right = copyTreeRec(T, node.right, newT, newNode);
+
+	return newNode;
+}

@@ -10,8 +10,8 @@
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
-	margin: 0 auto 12px;
-	padding: 16px 20px;
+	margin: 0 auto 6px;
+	padding: 10px 20px;
 	background-color: #d7e3f5;
 }
 
@@ -52,14 +52,44 @@ select {
 	border-radius: 6px;
 }
 
-#wrapper {
+#step-descriptions-wrapper {
+	display: flex;
+	margin: auto;
+	margin-bottom: 15px;
+	width: 95vw;
+	border: 2px solid black;
+	background: linear-gradient(#000, #000) no-repeat center/1px 100%;
+	border-radius: 7px;
+	/* https://stackoverflow.com/questions/1179928/how-can-i-put-a-vertical-line-down-the-center-of-a-div */
+}
+
+.step-description-wrap {
+	width: 50%;
+	flex: 1;
+	text-align: center;
+	height: 70px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.step-description-text {
+	padding: 5px;
+	height: 45px;
+}
+
+.step-description-buttons {
+	padding-bottom: 5px;
+}
+
+#tree-wrapper {
 	display: flex;
 	width: 95vw;
-	height: 75vh;
+	height: 70vh;
 	margin: auto;
 	border: 2px solid black;
-	border-radius: 15px;
-	background: linear-gradient(#000, #000) no-repeat center/2px 100%;
+	border-radius: 12px;
+	background: linear-gradient(#000, #000) no-repeat center/1px 100%;
 	/* https://stackoverflow.com/questions/1179928/how-can-i-put-a-vertical-line-down-the-center-of-a-div */
 }
 
@@ -74,7 +104,12 @@ select {
 	align-items: center;
 	width: 95vw;
 	margin: auto;
-	padding: 25px;
+	padding: 10px;
+	flex-direction: column;
+}
+
+#buttons-wrap div {
+	padding-bottom: 7px;
 }
 
 #buttons-wrap button {
@@ -106,7 +141,6 @@ select {
 	width: 30px;
 	height: 30px;
 }
-
 
 @media only screen and (max-width: 1300px) {
 	#wrapper {
