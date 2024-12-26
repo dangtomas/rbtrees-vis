@@ -1,6 +1,8 @@
 import {
 	RED,
 	BLACK,
+	LEFT,
+	RIGHT,
 	RBTree,
 	createNode,
 	searchNode,
@@ -51,6 +53,8 @@ export function rbInsert(T, key, steps) {
 	steps.push({
 		T: copyTree(T),
 		description: `Adding a red node with key ${key} according to rules of binary search trees.`,
+		xId: null,
+		rotate: null,
 	});
 	const x = createNode(T, key);
 	let z = T.root;
@@ -75,6 +79,8 @@ export function rbInsert(T, key, steps) {
 	steps.push({
 		T,
 		description: "Done.",
+		xId: null,
+		rotate: null,
 	});
 }
 
@@ -87,6 +93,7 @@ function rbInsertFixup(T, x, steps) {
 					T: copyTree(T),
 					description: `Node ${x.key} and its parent ${x.p.key} are both red, uncle ${y.key} is also red. We proceed with case 1.`,
 					xId: `n-${x.key}`,
+					rotate: null,
 				});
 				x.p.color = BLACK;
 				y.color = BLACK;
@@ -103,6 +110,7 @@ function rbInsertFixup(T, x, steps) {
 							y.key === -1 ? "NIL" : y.key
 						} is black. We proceed with case 2 to align the red nodes in one branch, which serves as a preparation for case 3.`,
 						xId: `n-${x.key}`,
+						rotate: { dir: LEFT, key: x.p.key },
 					});
 					x = x.p;
 					leftRotate(T, x);
@@ -115,6 +123,7 @@ function rbInsertFixup(T, x, steps) {
 						y.key === -1 ? "NIL" : y.key
 					} is black. We proceed with case 3.`,
 					xId: `n-${x.key}`,
+					rotate: { dir: RIGHT, key: x.p.p.key },
 				});
 				x.p.color = BLACK;
 				x.p.p.color = RED;
@@ -127,6 +136,7 @@ function rbInsertFixup(T, x, steps) {
 					T: copyTree(T),
 					description: `Node ${x.key} and its parent ${x.p.key} are both red, uncle ${y.key} is also red. We proceed with case 1.`,
 					xId: `n-${x.key}`,
+					rotate: null,
 				});
 				x.p.color = BLACK;
 				y.color = BLACK;
@@ -143,6 +153,7 @@ function rbInsertFixup(T, x, steps) {
 							y.key === -1 ? "NIL" : y.key
 						} is black. We proceed with case 2 to align the red nodes in one branch, which serves as a preparation for case 3.`,
 						xId: `n-${x.key}`,
+						rotate: { dir: RIGHT, key: x.p.key },
 					});
 					x = x.p;
 					rightRotate(T, x);
@@ -155,6 +166,7 @@ function rbInsertFixup(T, x, steps) {
 						y.key === -1 ? "NIL" : y.key
 					} is black. We proceed with case 3.`,
 					xId: `n-${x.key}`,
+					rotate: { dir: LEFT, key: x.p.p.key },
 				});
 				x.p.color = BLACK;
 				x.p.p.color = RED;
@@ -167,6 +179,7 @@ function rbInsertFixup(T, x, steps) {
 			T: copyTree(T),
 			description: `We color the root black to satisfy the properties of the tree.`,
 			xId: `n-${x.key}`,
+			rotate: null,
 		});
 		T.root.color = BLACK;
 	}
@@ -176,6 +189,8 @@ export function rbDelete(T, key, steps) {
 	steps.push({
 		T: copyTree(T),
 		description: `Deleting node with key ${key} according to rules of binary search trees.`,
+		xId: null,
+		rotate: null,
 	});
 	const z = searchNode(T, key);
 	let y = z;
@@ -209,6 +224,8 @@ export function rbDelete(T, key, steps) {
 	steps.push({
 		T,
 		description: "Done.",
+		xId: null,
+		rotate: null,
 	});
 }
 
@@ -228,6 +245,7 @@ function rbDeleteFixup(T, x, steps) {
 						x === T.NIL
 							? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
 							: `n-${x.key}`,
+					rotate: { dir: LEFT, key: x.p.key },
 				});
 				w.color = BLACK;
 				x.p.color = RED;
@@ -246,6 +264,7 @@ function rbDeleteFixup(T, x, steps) {
 						x === T.NIL
 							? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
 							: `n-${x.key}`,
+					rotate: null,
 				});
 				w.color = RED;
 				x = x.p;
@@ -262,6 +281,7 @@ function rbDeleteFixup(T, x, steps) {
 							x === T.NIL
 								? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
 								: `n-${x.key}`,
+						rotate: { dir: RIGHT, key: w.key },
 					});
 					w.left.color = BLACK;
 					w.color = RED;
@@ -278,6 +298,7 @@ function rbDeleteFixup(T, x, steps) {
 						x === T.NIL
 							? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
 							: `n-${x.key}`,
+					rotate: { dir: LEFT, key: x.p.key },
 				});
 				w.color = x.p.color;
 				x.p.color = BLACK;
@@ -298,6 +319,7 @@ function rbDeleteFixup(T, x, steps) {
 						x === T.NIL
 							? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
 							: `n-${x.key}`,
+					rotate: { dir: RIGHT, key: x.p.key },
 				});
 				w.color = BLACK;
 				x.p.color = RED;
@@ -315,6 +337,7 @@ function rbDeleteFixup(T, x, steps) {
 						x === T.NIL
 							? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
 							: `n-${x.key}`,
+					rotate: null,
 				});
 				w.color = RED;
 				x = x.p;
@@ -331,6 +354,7 @@ function rbDeleteFixup(T, x, steps) {
 							x === T.NIL
 								? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
 								: `n-${x.key}`,
+						rotate: { dir: LEFT, key: w.key },
 					});
 					w.right.color = BLACK;
 					w.color = RED;
@@ -348,6 +372,7 @@ function rbDeleteFixup(T, x, steps) {
 						x === T.NIL
 							? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
 							: `n-${x.key}`,
+					rotate: { dir: RIGHT, key: x.p.key },
 				});
 				w.color = x.p.color;
 				x.p.color = BLACK;
@@ -362,6 +387,7 @@ function rbDeleteFixup(T, x, steps) {
 			T: copyTree(T),
 			description: `Node ${x.key} is red with extra black color. We proceed with the base case.`,
 			xId: `n-${x.key}`,
+			rotate: null,
 		});
 		x.color = BLACK;
 	}

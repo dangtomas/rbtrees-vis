@@ -82,6 +82,11 @@ select {
 	padding-bottom: 5px;
 }
 
+.step-description-buttons button {
+	padding: 1px 3px;
+	margin-left: 5px;
+}
+
 #tree-wrapper {
 	display: flex;
 	width: 95vw;

@@ -1,6 +1,8 @@
 import {
 	RED,
 	BLACK,
+	LEFT,
+	RIGHT,
 	RBTree,
 	createNode,
 	minimum,
@@ -26,6 +28,7 @@ function llrbFixup(T, x, steps) {
 			description: `Bottom-up pass: Node with key ${x.key} has a single red child as a right 
 			child. We perform a left rotation to move the red child to the left.`,
 			xId: `n-${x.key}`,
+			rotate: { dir: LEFT, key: x.key },
 		});
 		x = llrbLeftRotate(T, x);
 	}
@@ -36,6 +39,7 @@ function llrbFixup(T, x, steps) {
 			description: `Bottom-up pass: Node with key ${x.key} has a single left red child, which
 			also has a single red left child. We perform a right rotation to turn the consecutive red nodes into siblings.`,
 			xId: `n-${x.key}`,
+			rotate: { dir: RIGHT, key: x.key },
 		});
 		x = llrbRightRotate(T, x);
 	}
@@ -45,6 +49,7 @@ function llrbFixup(T, x, steps) {
 			T: copyTree(T),
 			description: `Bottom-up pass: Node with key ${x.key} has two red children. We move the red color up the tree.`,
 			xId: `n-${x.key}`,
+			rotate: null,
 		});
 		colorFlip(T, x);
 	}
@@ -56,6 +61,7 @@ export function llrbInsert(T, key, steps) {
 		T: copyTree(T),
 		description: `Adding a red node with key ${key} according to rules of binary search trees.`,
 		xId: null,
+		rotate: null,
 	});
 	const z = createNode(T, key);
 	T.root = llrbInsertRec(T, T.root, z, T.NIL, steps);
@@ -64,6 +70,7 @@ export function llrbInsert(T, key, steps) {
 			T: copyTree(T),
 			description: `We color the root black to satisfy the properties of the tree.`,
 			xId: `n-${T.root.key}`,
+			rotate: null,
 		});
 		T.root.color = BLACK;
 	}
@@ -71,6 +78,7 @@ export function llrbInsert(T, key, steps) {
 		T,
 		description: "Done.",
 		xId: null,
+		rotate: null,
 	});
 }
 
@@ -93,6 +101,7 @@ function moveRedLeft(T, x, steps) {
 		T: copyTree(T),
 		description: "Moving red node to the left: Color flip.",
 		xId: `n-${x.key}`,
+		rotate: null,
 	});
 	colorFlip(T, x);
 	if (x.right.left.color === RED) {
@@ -101,6 +110,7 @@ function moveRedLeft(T, x, steps) {
 			description:
 				"Moving red node to the left, correction: First rotation.",
 			xId: `n-${x.key}`,
+			rotate: { dir: RIGHT, key: x.right.key },
 		});
 		x.right = llrbRightRotate(T, x.right);
 		steps.push({
@@ -108,6 +118,7 @@ function moveRedLeft(T, x, steps) {
 			description:
 				"Moving red node to the left, correction: Second rotation and color flip.",
 			xId: `n-${x.key}`,
+			rotate: { dir: LEFT, key: x.key },
 		});
 		x = llrbLeftRotate(T, x);
 		colorFlip(T, x);
@@ -120,6 +131,7 @@ function moveRedRight(T, x, steps) {
 		T: copyTree(T),
 		description: "Moving red node to the right: color flip.",
 		xId: `n-${x.key}`,
+		rotate: null,
 	});
 	colorFlip(T, x);
 	if (x.left.left.color === RED) {
@@ -128,6 +140,7 @@ function moveRedRight(T, x, steps) {
 			description:
 				"Moving red node to the right, correction: rotation and color flip.",
 			xId: `n-${x.key}`,
+			rotate: { dir: RIGHT, key: x.key },
 		});
 		x = llrbRightRotate(T, x);
 		colorFlip(T, x);
@@ -142,6 +155,7 @@ function llrbDeleteMin(T, x, steps) {
 			description:
 				"Deleting the successor: We are at the successor so we can simply delete the node.",
 			xId: `n-${x.key}`,
+			rotate: null,
 		});
 		x.p = T.NIL;
 		return T.NIL;
@@ -152,6 +166,7 @@ function llrbDeleteMin(T, x, steps) {
 			description:
 				"Deleting the successor: We need to move a red node to the left.",
 			xId: `n-${x.key}`,
+			rotate: null,
 		});
 		x = moveRedLeft(T, x, steps);
 	}
@@ -159,6 +174,7 @@ function llrbDeleteMin(T, x, steps) {
 		T: copyTree(T),
 		description: "Deleting the successor: We proceed to the left.",
 		xId: `n-${x.key}`,
+		rotate: null,
 	});
 	x.left = llrbDeleteMin(T, x.left, steps);
 	return llrbFixup(T, x, steps);
@@ -169,6 +185,7 @@ export function llrbDelete(T, key, steps) {
 		T: copyTree(T),
 		description: `Deleting node with key ${key}. We first search for the node.`,
 		xId: null,
+		rotate: null,
 	});
 	T.root = llrbDeleteRec(T, T.root, key, steps);
 	if (T.root.color === RED) {
@@ -176,12 +193,15 @@ export function llrbDelete(T, key, steps) {
 			T: copyTree(T),
 			description: `We color the root black to satisfy the properties of the tree.`,
 			xId: `n-${T.root.key}`,
+			rotate: null,
 		});
 		T.root.color = BLACK;
 	}
 	steps.push({
 		T,
 		description: "Done.",
+		xId: null,
+		rotate: null,
 	});
 }
 
@@ -192,6 +212,7 @@ function llrbDeleteRec(T, x, key, steps) {
 				T: copyTree(T),
 				description: `Top-bottom pass: ${key} < ${x.key}, we need to move a red node to the left.`,
 				xId: `n-${x.key}`,
+				rotate: null,
 			});
 			x = moveRedLeft(T, x, steps);
 		}
@@ -199,6 +220,7 @@ function llrbDeleteRec(T, x, key, steps) {
 			T: copyTree(T),
 			description: `Top-bottom pass: ${key} < ${x.key}. We proceed to the left.`,
 			xId: `n-${x.key}`,
+			rotate: null,
 		});
 		x.left = llrbDeleteRec(T, x.left, key, steps);
 	} else {
@@ -211,6 +233,7 @@ function llrbDeleteRec(T, x, key, steps) {
 					x.key
 				}. We move the left red child to the right, since we will move to the right anyway.`,
 				xId: `n-${x.key}`,
+				rotate: { dir: RIGHT, key: x.key },
 			});
 			x = llrbRightRotate(T, x);
 		}
@@ -219,6 +242,7 @@ function llrbDeleteRec(T, x, key, steps) {
 				T: copyTree(T),
 				description: `Top-bottom pass: ${key} = ${x.key}. The searched node is red and has no children, we can simply delete it.`,
 				xId: `n-${x.key}`,
+				rotate: null,
 			});
 			x.p = T.NIL;
 			return T.NIL;
@@ -230,6 +254,7 @@ function llrbDeleteRec(T, x, key, steps) {
 					key > x.key ? ">" : "="
 				} ${x.key}. We move a red node to the right.`,
 				xId: `n-${x.key}`,
+				rotate: null,
 			});
 			x = moveRedRight(T, x, steps);
 		}
@@ -240,6 +265,7 @@ function llrbDeleteRec(T, x, key, steps) {
 				T: copyTree(T),
 				description: `Top-bottom pass: ${key} = ${x.key}. We replace the node with its successor ${succ.key}, and delete the successor.`,
 				xId: `n-${x.key}`,
+				rotate: null,
 			});
 			x.key = succ.key;
 			succ.key *= -1;
@@ -249,6 +275,7 @@ function llrbDeleteRec(T, x, key, steps) {
 				T: copyTree(T),
 				description: `Top-bottom pass: ${key} > ${x.key}. We proceed to the right.`,
 				xId: `n-${x.key}`,
+				rotate: null,
 			});
 			x.right = llrbDeleteRec(T, x.right, key, steps);
 		}

@@ -1,6 +1,8 @@
 import {
 	RED,
 	BLACK,
+	LEFT,
+	RIGHT,
 	RBTree,
 	searchNode,
 	minimum,
@@ -57,6 +59,7 @@ export function paritySeekingDelete(T, key, steps) {
 		T: copyTree(T),
 		description: `Deleting node with key ${key} according to rules of binary search trees.`,
 		xId: null,
+		rotate: null,
 	});
 	const z = searchNode(T, key);
 	let y = z;
@@ -91,6 +94,7 @@ export function paritySeekingDelete(T, key, steps) {
 		T,
 		description: "Done.",
 		xId: null,
+		rotate: null,
 	});
 }
 
@@ -114,6 +118,7 @@ export function paritySeekingFixup(T, x, steps) {
 					x === T.NIL
 						? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
 						: `n-${x.key}`,
+				rotate: { dir: x === x.p.left ? LEFT : RIGHT, key: x.p.key },
 			});
 			if (x === x.p.left) {
 				leftRotate23(T, x.p);
@@ -132,6 +137,7 @@ export function paritySeekingFixup(T, x, steps) {
 					x === T.NIL
 						? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
 						: `n-${x.key}`,
+				rotate: null,
 			});
 			y.color = RED;
 			x = x.p;
@@ -146,6 +152,7 @@ export function paritySeekingFixup(T, x, steps) {
 			} is the root of the deficient subtree. We can fix the
 			deficiency by coloring the node black (case 1).`,
 			xId: `n-${x.key}`,
+			rotate: null,
 		});
 		x.color = BLACK;
 	}
@@ -158,6 +165,7 @@ function case2Fixup(T, x, z, steps) {
 			description: `At least one of the children of node ${z.key} we colored red in the
 			previous step is red. We proceed with a fixup, which fully resolves the deficiency.`,
 			xId: `n-${x.key}`,
+			rotate: null,
 		});
 		if (z === x.left) {
 			if (z.left.color === BLACK) {
@@ -165,6 +173,7 @@ function case2Fixup(T, x, z, steps) {
 					T: copyTree(T),
 					description: `Case 2 Fixup: First rotation to align the red nodes.`,
 					xId: `n-${x.key}`,
+					rotate: { dir: LEFT, key: z.key },
 				});
 				leftRotate23(T, z);
 			}
@@ -172,6 +181,7 @@ function case2Fixup(T, x, z, steps) {
 				T: copyTree(T),
 				description: `Case 2 Fixup: Final rotation and switching colors.`,
 				xId: `n-${x.key}`,
+				rotate: { dir: RIGHT, key: x.key },
 			});
 			rightRotate23(T, x);
 		} else {
@@ -180,6 +190,7 @@ function case2Fixup(T, x, z, steps) {
 					T: copyTree(T),
 					description: `Case 2 Fixup: First rotation to align the red nodes.`,
 					xId: `n-${x.key}`,
+					rotate: { dir: RIGHT, key: z.key },
 				});
 				rightRotate23(T, z);
 			}
@@ -187,6 +198,7 @@ function case2Fixup(T, x, z, steps) {
 				T: copyTree(T),
 				description: `Case 2 Fixup: Final rotation and switching colors.`,
 				xId: `n-${x.key}`,
+				rotate: { dir: LEFT, key: x.key },
 			});
 			leftRotate23(T, x);
 		}

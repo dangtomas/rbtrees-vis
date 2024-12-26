@@ -1,6 +1,9 @@
 export const RED = true;
 export const BLACK = false;
 
+export const LEFT = 1;
+export const RIGHT = 2;
+
 export class RBNode {
 	constructor(key) {
 		this.key = key;

@@ -1,4 +1,12 @@
-import { RED, BLACK, createNode, colorFlip, copyTree } from "./utils.js";
+import {
+	RED,
+	BLACK,
+	LEFT,
+	RIGHT,
+	createNode,
+	colorFlip,
+	copyTree,
+} from "./utils.js";
 import {
 	ParitySeekingRBTree,
 	leftRotate23,
@@ -13,6 +21,7 @@ export function rb23Insert(T, key, steps) {
 		T: copyTree(T),
 		description: `Adding a red node with key ${key} according to rules of binary search trees.`,
 		xId: null,
+		rotate: null,
 	});
 	const x = createNode(T, key);
 	let z = T.root;
@@ -38,6 +47,7 @@ export function rb23Insert(T, key, steps) {
 		T,
 		description: "Done.",
 		xId: null,
+		rotate: null,
 	});
 }
 
@@ -49,6 +59,7 @@ function rb23InsertFixup(T, x, steps) {
 				description: `Node ${x.p.key} has two red children. We proceed with case (c) to
 				move the red color up the tree.`,
 				xId: `n-${x.p.key}`,
+				rotate: null,
 			});
 			colorFlip(T, x.p);
 			x = x.p;
@@ -61,6 +72,7 @@ function rb23InsertFixup(T, x, steps) {
 						We proceed with case (a) to align the red nodes in one branch, which 
 						serves as a preparation for case (b).`,
 						xId: `n-${x.key}`,
+						rotate: { dir: LEFT, key: x.p.key },
 					});
 					x = x.p;
 					leftRotate23(T, x);
@@ -70,6 +82,7 @@ function rb23InsertFixup(T, x, steps) {
 					description: `Node ${x.key} and its parent ${x.p.key} are both red and aligned 
 					in one branch. We turn the consecutive red nodes to siblings (case (b)).`,
 					xId: `n-${x.key}`,
+					rotate: { dir: RIGHT, key: x.p.p.key },
 				});
 				rightRotate23(T, x.p.p);
 			} else {
@@ -80,6 +93,7 @@ function rb23InsertFixup(T, x, steps) {
 						We proceed with case (a) to align the red nodes in one branch, which 
 						serves as a preparation for case (b).`,
 						xId: `n-${x.key}`,
+						rotate: { dir: RIGHT, key: x.p.key },
 					});
 					x = x.p;
 					rightRotate23(T, x);
@@ -89,6 +103,7 @@ function rb23InsertFixup(T, x, steps) {
 					description: `Node ${x.key} and its parent ${x.p.key} are both red and aligned 
 					in one branch. We turn the consecutive red nodes to siblings (case (b)).`,
 					xId: `n-${x.key}`,
+					rotate: { dir: LEFT, key: x.p.p.key },
 				});
 				leftRotate23(T, x.p.p);
 			}
@@ -101,6 +116,7 @@ function rb23InsertFixup(T, x, steps) {
 			T: copyTree(T),
 			description: `We color the root black to satisfy the properties of the tree.`,
 			xId: `n-${x.key}`,
+			rotate: null,
 		});
 		T.root.color = BLACK;
 	}
