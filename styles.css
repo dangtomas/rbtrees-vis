@@ -47,16 +47,16 @@
 
 select {
 	font-size: 20px;
-	margin: 12px 0;
 	padding: 4px;
+	margin: 12px 0;
 	border-radius: 6px;
 }
 
 #step-descriptions-wrapper {
 	display: flex;
+	width: 95vw;
 	margin: auto;
 	margin-bottom: 15px;
-	width: 95vw;
 	border: 2px solid black;
 	background: linear-gradient(#000, #000) no-repeat center/1px 100%;
 	border-radius: 7px;
@@ -64,18 +64,18 @@ select {
 }
 
 .step-description-wrap {
-	width: 50%;
-	flex: 1;
-	text-align: center;
-	height: 70px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	flex: 1;
+	width: 50%;
+	height: 70px;
+	text-align: center;
 }
 
 .step-description-text {
-	padding: 5px;
 	height: 45px;
+	padding: 5px;
 }
 
 .step-description-buttons {
@@ -104,27 +104,26 @@ select {
 }
 
 #buttons-wrap {
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	width: 95vw;
-	margin: auto;
 	padding: 10px;
-	flex-direction: column;
+	margin: auto;
 }
 
 #buttons-wrap div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	padding-bottom: 7px;
 }
 
 #buttons-wrap button {
-	background-color: #d7e3f5;
 	font-size: 20px;
-	margin-left: 10px;
 	padding: 5px 10px;
+	margin-left: 10px;
 	border: none;
 	border-radius: 7px;
 	cursor: pointer;
+	background-color: #d7e3f5;
 }
 
 #buttons-wrap input[type="text"] {
@@ -133,8 +132,8 @@ select {
 }
 
 #buttons-wrap button:hover {
-	background-color: black;
 	color: white;
+	background-color: black;
 }
 
 #buttons-wrap label {

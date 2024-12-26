@@ -1,18 +1,5 @@
-import {
-	RED,
-	BLACK,
-	LEFT,
-	RIGHT,
-	createNode,
-	colorFlip,
-	copyTree,
-} from "./utils.js";
-import {
-	ParitySeekingRBTree,
-	leftRotate23,
-	rightRotate23,
-	paritySeekingDelete,
-} from "./paritySeekingDelete.js";
+import { RED, BLACK, LEFT, RIGHT, createNode, colorFlip, copyTree } from "./utils.js";
+import { ParitySeekingRBTree, leftRotate23, rightRotate23, paritySeekingDelete } from "./paritySeekingDelete.js";
 
 export class RB23Tree extends ParitySeekingRBTree {}
 
@@ -20,8 +7,6 @@ export function rb23Insert(T, key, steps) {
 	steps.push({
 		T: copyTree(T),
 		description: `Adding a red node with key ${key} according to rules of binary search trees.`,
-		xId: null,
-		rotate: null,
 	});
 	const x = createNode(T, key);
 	let z = T.root;
@@ -46,8 +31,6 @@ export function rb23Insert(T, key, steps) {
 	steps.push({
 		T,
 		description: "Done.",
-		xId: null,
-		rotate: null,
 	});
 }
 
@@ -59,7 +42,6 @@ function rb23InsertFixup(T, x, steps) {
 				description: `Node ${x.p.key} has two red children. We proceed with case (c) to
 				move the red color up the tree.`,
 				xId: `n-${x.p.key}`,
-				rotate: null,
 			});
 			colorFlip(T, x.p);
 			x = x.p;
@@ -116,7 +98,6 @@ function rb23InsertFixup(T, x, steps) {
 			T: copyTree(T),
 			description: `We color the root black to satisfy the properties of the tree.`,
 			xId: `n-${x.key}`,
-			rotate: null,
 		});
 		T.root.color = BLACK;
 	}

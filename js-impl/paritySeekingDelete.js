@@ -1,14 +1,4 @@
-import {
-	RED,
-	BLACK,
-	LEFT,
-	RIGHT,
-	RBTree,
-	searchNode,
-	minimum,
-	rbTransplant,
-	copyTree,
-} from "./utils.js";
+import { RED, BLACK, LEFT, RIGHT, RBTree, searchNode, minimum, rbTransplant, copyTree} from "./utils.js";
 
 export class ParitySeekingRBTree extends RBTree {}
 
@@ -58,8 +48,6 @@ export function paritySeekingDelete(T, key, steps) {
 	steps.push({
 		T: copyTree(T),
 		description: `Deleting node with key ${key} according to rules of binary search trees.`,
-		xId: null,
-		rotate: null,
 	});
 	const z = searchNode(T, key);
 	let y = z;
@@ -93,8 +81,6 @@ export function paritySeekingDelete(T, key, steps) {
 	steps.push({
 		T,
 		description: "Done.",
-		xId: null,
-		rotate: null,
 	});
 }
 
@@ -109,15 +95,10 @@ export function paritySeekingFixup(T, x, steps) {
 		if (y.color === RED) {
 			steps.push({
 				T: copyTree(T),
-				description: `Node ${
-					x === T.NIL ? "NIL" : x.key
-				} is the root of deficient subtree, its brother ${y.key}
-				is red. We proceed with case 3 to provide a black brother for node ${x.key}
-				allowing us to continue with case 2.`,
-				xId:
-					x === T.NIL
-						? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
-						: `n-${x.key}`,
+				description: `Node ${x === T.NIL ? "NIL" : x.key} is the root of deficient subtree, 
+				its brother ${y.key} is red. We proceed with case 3 to provide a black brother for 
+				node ${x === T.NIL ? "NIL" : x.key} allowing us to continue with case 2.`,
+				xId: x === T.NIL ? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}` : `n-${x.key}`,		
 				rotate: { dir: x === x.p.left ? LEFT : RIGHT, key: x.p.key },
 			});
 			if (x === x.p.left) {
@@ -128,16 +109,10 @@ export function paritySeekingFixup(T, x, steps) {
 		} else {
 			steps.push({
 				T: copyTree(T),
-				description: `Node ${
-					x === T.NIL ? "NIL" : x.key
-				} is the root of deficient subtree, its brother ${y.key}
-				is black. We move the deficiency one level higher by coloring the brother red 
-				(case 2).`,
-				xId:
-					x === T.NIL
-						? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
-						: `n-${x.key}`,
-				rotate: null,
+				description: `Node ${x === T.NIL ? "NIL" : x.key} is the root of deficient subtree, 
+				its brother ${y.key} is black. We move the deficiency one level higher by coloring 
+				the brother red (case 2).`,
+				xId: x === T.NIL ? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}` : `n-${x.key}`,
 			});
 			y.color = RED;
 			x = x.p;
@@ -147,12 +122,9 @@ export function paritySeekingFixup(T, x, steps) {
 	if (x.color === RED) {
 		steps.push({
 			T: copyTree(T),
-			description: `Node ${
-				x === T.NIL ? "NIL" : x.key
-			} is the root of the deficient subtree. We can fix the
-			deficiency by coloring the node black (case 1).`,
+			description: `Node ${x === T.NIL ? "NIL" : x.key} is the root of the deficient subtree. 
+			We can fix the deficiency by coloring the node black (case 1).`,
 			xId: `n-${x.key}`,
-			rotate: null,
 		});
 		x.color = BLACK;
 	}
@@ -165,7 +137,6 @@ function case2Fixup(T, x, z, steps) {
 			description: `At least one of the children of node ${z.key} we colored red in the
 			previous step is red. We proceed with a fixup, which fully resolves the deficiency.`,
 			xId: `n-${x.key}`,
-			rotate: null,
 		});
 		if (z === x.left) {
 			if (z.left.color === BLACK) {

@@ -9,7 +9,8 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-			rel="stylesheet" />
+			rel="stylesheet" 
+		/>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.30.4/cytoscape.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/dagre@0.8.5/dist/dagre.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.5.0/cytoscape-dagre.min.js"></script>
@@ -20,41 +21,26 @@
 			<h1>Red-Black Trees Visualisation</h1>
 			<div>
 				<button id="single-tree">Single tree variant</button>
-				<button id="side-to-side" class="active-button">
-					Side to side
-				</button>
+				<button id="side-to-side" class="active-button">Side to side</button>
 			</div>
 		</div>
 		<div id="tree-variant-selectors">
 			<select id="variant1-selector">
 				<option value="classic-rb" selected>Classic RB Trees</option>
 				<option value="llrb">LLRB Trees</option>
-				<option value="parity-seeking-2-3rb">
-					Parity-Seeking 2-3 RB Trees
-				</option>
-				<option value="parity-seeking-2-3-4rb">
-					Parity-Seeking 2-3-4 RB Trees
-				</option>
+				<option value="parity-seeking-2-3rb">Parity-Seeking 2-3 RB Trees</option>
+				<option value="parity-seeking-2-3-4rb">Parity-Seeking 2-3-4 RB Trees</option>
 			</select>
 			<select id="variant2-selector">
 				<option value="classic-rb">Classic RB Trees</option>
 				<option value="llrb" selected>LLRB Trees</option>
-				<option value="parity-seeking-2-3rb">
-					Parity-Seeking 2-3 RB Trees
-				</option>
-				<option value="parity-seeking-2-3-4rb">
-					Parity-Seeking 2-3-4 RB Trees
-				</option>
+				<option value="parity-seeking-2-3rb">Parity-Seeking 2-3 RB Trees</option>
+				<option value="parity-seeking-2-3-4rb">Parity-Seeking 2-3-4 RB Trees</option>
 			</select>
 		</div>
 		<div id="step-descriptions-wrapper">
-			<div
-				class="step-description-wrap"
-				id="classic-rb-sd"
-				style="order: 1">
-				<div
-					class="step-description-text"
-					id="classic-rb-step-description-text">
+			<div class="step-description-wrap" id="classic-rb-sd" style="order: 1">
+				<div class="step-description-text" id="classic-rb-step-description-text">
 					Insert or Delete a node to start the visualisation.
 				</div>
 				<div class="step-description-buttons" style="display: none">
@@ -64,9 +50,7 @@
 				</div>
 			</div>
 			<div class="step-description-wrap" id="llrb-sd" style="order: 2">
-				<div
-					class="step-description-text"
-					id="llrb-step-description-text">
+				<div class="step-description-text" id="llrb-step-description-text">
 					Insert or Delete a node to start the visualisation.
 				</div>
 				<div class="step-description-buttons" style="display: none">
@@ -75,37 +59,23 @@
 					<button id="llrb-next">Next</button>
 				</div>
 			</div>
-			<div
-				class="step-description-wrap"
-				id="parity-seeking-2-3rb-sd"
-				style="display: none">
-				<div
-					class="step-description-text"
-					id="parity-seeking-2-3rb-step-description-text">
+			<div class="step-description-wrap" id="parity-seeking-2-3rb-sd" style="display: none">
+				<div class="step-description-text" id="parity-seeking-2-3rb-step-description-text">
 					Insert or Delete a node to start the visualisation.
 				</div>
 				<div class="step-description-buttons" style="display: none">
 					<span id="parity-seeking-2-3rb-step-counter"></span>
-					<button id="parity-seeking-2-3rb-previous" disabled>
-						Previous
-					</button>
+					<button id="parity-seeking-2-3rb-previous" disabled>Previous</button>
 					<button id="parity-seeking-2-3rb-next">Next</button>
 				</div>
 			</div>
-			<div
-				class="step-description-wrap"
-				id="parity-seeking-2-3-4rb-sd"
-				style="display: none">
-				<div
-					class="step-description-text"
-					id="parity-seeking-2-3-4rb-step-description-text">
+			<div class="step-description-wrap" id="parity-seeking-2-3-4rb-sd" style="display: none">
+				<div class="step-description-text" id="parity-seeking-2-3-4rb-step-description-text">
 					Insert or Delete a node to start the visualisation.
 				</div>
 				<div class="step-description-buttons" style="display: none">
 					<span id="parity-seeking-2-3-4rb-step-counter"></span>
-					<button id="parity-seeking-2-3-4rb-previous" disabled>
-						Previous
-					</button>
+					<button id="parity-seeking-2-3-4rb-previous" disabled>Previous</button>
 					<button id="parity-seeking-2-3-4rb-next">Next</button>
 				</div>
 			</div>
@@ -113,34 +83,26 @@
 		<div id="tree-wrapper">
 			<div class="tree-wrap" id="classic-rb" style="order: 1"></div>
 			<div class="tree-wrap" id="llrb" style="order: 2"></div>
-			<div
-				class="tree-wrap"
-				id="parity-seeking-2-3rb"
-				style="display: none"></div>
-			<div
-				class="tree-wrap"
-				id="parity-seeking-2-3-4rb"
-				style="display: none"></div>
+			<div class="tree-wrap" id="parity-seeking-2-3rb" style="display: none"></div>
+			<div class="tree-wrap" id="parity-seeking-2-3-4rb" style="display: none"></div>
 		</div>
 		<div id="buttons-wrap">
 			<div>
-				<input id="value-input" type="text" />
+				<input id="value-input" type="text"/>
 				<button id="insert-button">Insert</button>
 				<button id="delete-button">Delete</button>
 				<button id="finish-operation-button">Finish operation</button>
 				<button id="reset-button">Reset trees</button>
-				<label for="show-nil">Show leaves </label>
-				<input id="show-nil" type="checkbox" checked />
+				<label for="show-nil">Show leaves</label>
+				<input id="show-nil" type="checkbox" checked/>
 			</div>
 			<div>
 				<button id="generate-random-button">Generate random</button>
 				<button id="fit-trees-button">Fit trees</button>
-				<label for="enable-rotate-animation"
-					>Enable rotate animation</label
-				>
-				<input id="enable-rotate-animation" type="checkbox" checked />
-				<label for="auto-fit-trees">Auto-fit trees </label>
-				<input id="auto-fit-trees" type="checkbox" unchecked />
+				<label for="enable-rotate-animation">Enable rotate animation</label>
+				<input id="enable-rotate-animation" type="checkbox" checked/>
+				<label for="auto-fit-trees">Auto-fit trees</label>
+				<input id="auto-fit-trees" type="checkbox" unchecked/>
 			</div>
 		</div>
 		<script src="layoutScript.js"></script>

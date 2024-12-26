@@ -1,14 +1,6 @@
 import {
-	RED,
-	BLACK,
-	LEFT,
-	RIGHT,
-	RBTree,
-	createNode,
-	searchNode,
-	minimum,
-	rbTransplant,
-	copyTree,
+	RED, BLACK, LEFT, RIGHT, RBTree, createNode, searchNode, minimum,
+	rbTransplant, copyTree,
 } from "./utils.js";
 
 export class ClassicRBTree extends RBTree {}
@@ -53,8 +45,6 @@ export function rbInsert(T, key, steps) {
 	steps.push({
 		T: copyTree(T),
 		description: `Adding a red node with key ${key} according to rules of binary search trees.`,
-		xId: null,
-		rotate: null,
 	});
 	const x = createNode(T, key);
 	let z = T.root;
@@ -79,8 +69,6 @@ export function rbInsert(T, key, steps) {
 	steps.push({
 		T,
 		description: "Done.",
-		xId: null,
-		rotate: null,
 	});
 }
 
@@ -91,9 +79,9 @@ function rbInsertFixup(T, x, steps) {
 			if (y.color === RED) {
 				steps.push({
 					T: copyTree(T),
-					description: `Node ${x.key} and its parent ${x.p.key} are both red, uncle ${y.key} is also red. We proceed with case 1.`,
+					description: `Node ${x.key} and its parent ${x.p.key} are both red, uncle ${y.key} 
+					is also red. We proceed with case 1.`,
 					xId: `n-${x.key}`,
-					rotate: null,
 				});
 				x.p.color = BLACK;
 				y.color = BLACK;
@@ -103,12 +91,9 @@ function rbInsertFixup(T, x, steps) {
 				if (x === x.p.right) {
 					steps.push({
 						T: copyTree(T),
-						description: `Node ${x.key} and its parent ${
-							x.p.key
-						} are both red, uncle 
-						${
-							y.key === -1 ? "NIL" : y.key
-						} is black. We proceed with case 2 to align the red nodes in one branch, which serves as a preparation for case 3.`,
+						description: `Node ${x.key} and its parent ${x.p.key} are both red, uncle 
+						${y.key === -1 ? "NIL" : y.key} is black. We proceed with case 2 to align the 
+						red nodes in one branch, which serves as a preparation for case 3.`,
 						xId: `n-${x.key}`,
 						rotate: { dir: LEFT, key: x.p.key },
 					});
@@ -117,11 +102,8 @@ function rbInsertFixup(T, x, steps) {
 				}
 				steps.push({
 					T: copyTree(T),
-					description: `Node ${x.key} and its parent ${
-						x.p.key
-					} are both red and aligned in one branch, uncle ${
-						y.key === -1 ? "NIL" : y.key
-					} is black. We proceed with case 3.`,
+					description: `Node ${x.key} and its parent ${x.p.key} are both red and aligned in one 
+					branch, uncle ${y.key === -1 ? "NIL" : y.key} is black. We proceed with case 3.`,
 					xId: `n-${x.key}`,
 					rotate: { dir: RIGHT, key: x.p.p.key },
 				});
@@ -134,9 +116,9 @@ function rbInsertFixup(T, x, steps) {
 			if (y.color === RED) {
 				steps.push({
 					T: copyTree(T),
-					description: `Node ${x.key} and its parent ${x.p.key} are both red, uncle ${y.key} is also red. We proceed with case 1.`,
+					description: `Node ${x.key} and its parent ${x.p.key} are both red, uncle ${y.key} is 
+					also red. We proceed with case 1.`,
 					xId: `n-${x.key}`,
-					rotate: null,
 				});
 				x.p.color = BLACK;
 				y.color = BLACK;
@@ -146,12 +128,9 @@ function rbInsertFixup(T, x, steps) {
 				if (x === x.p.left) {
 					steps.push({
 						T: copyTree(T),
-						description: `Node ${x.key} and its parent ${
-							x.p.key
-						} are both red, uncle 
-						${
-							y.key === -1 ? "NIL" : y.key
-						} is black. We proceed with case 2 to align the red nodes in one branch, which serves as a preparation for case 3.`,
+						description: `Node ${x.key} and its parent ${x.p.key} are both red, uncle 
+						${y.key === -1 ? "NIL" : y.key} is black. We proceed with case 2 to align 
+						the red nodes in one branch, which serves as a preparation for case 3.`,
 						xId: `n-${x.key}`,
 						rotate: { dir: RIGHT, key: x.p.key },
 					});
@@ -160,11 +139,8 @@ function rbInsertFixup(T, x, steps) {
 				}
 				steps.push({
 					T: copyTree(T),
-					description: `Node ${x.key} and its parent ${
-						x.p.key
-					} are both red and aligned in one branch, uncle ${
-						y.key === -1 ? "NIL" : y.key
-					} is black. We proceed with case 3.`,
+					description: `Node ${x.key} and its parent ${x.p.key} are both red and aligned in 
+					one branch, uncle ${y.key === -1 ? "NIL" : y.key} is black. We proceed with case 3.`,
 					xId: `n-${x.key}`,
 					rotate: { dir: LEFT, key: x.p.p.key },
 				});
@@ -179,7 +155,6 @@ function rbInsertFixup(T, x, steps) {
 			T: copyTree(T),
 			description: `We color the root black to satisfy the properties of the tree.`,
 			xId: `n-${x.key}`,
-			rotate: null,
 		});
 		T.root.color = BLACK;
 	}
@@ -189,8 +164,6 @@ export function rbDelete(T, key, steps) {
 	steps.push({
 		T: copyTree(T),
 		description: `Deleting node with key ${key} according to rules of binary search trees.`,
-		xId: null,
-		rotate: null,
 	});
 	const z = searchNode(T, key);
 	let y = z;
@@ -224,8 +197,6 @@ export function rbDelete(T, key, steps) {
 	steps.push({
 		T,
 		description: "Done.",
-		xId: null,
-		rotate: null,
 	});
 }
 
@@ -236,15 +207,9 @@ function rbDeleteFixup(T, x, steps) {
 			if (w.color === RED) {
 				steps.push({
 					T: copyTree(T),
-					description: `Node ${
-						x === T.NIL ? "NIL" : x.key
-					} has extra black color, its sibling ${
-						w.key
-					} is red. We proceed with case 1.`,
-					xId:
-						x === T.NIL
-							? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
-							: `n-${x.key}`,
+					description: `Node ${x === T.NIL ? "NIL" : x.key} has extra black color, 
+					its sibling ${w.key} is red. We proceed with case 1.`,
+					xId: x === T.NIL ? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}` : `n-${x.key}`,
 					rotate: { dir: LEFT, key: x.p.key },
 				});
 				w.color = BLACK;
@@ -255,16 +220,9 @@ function rbDeleteFixup(T, x, steps) {
 			if (w.left.color === BLACK && w.right.color === BLACK) {
 				steps.push({
 					T: copyTree(T),
-					description: `Node ${
-						x === T.NIL ? "NIL" : x.key
-					} has extra black color, its sibling ${
-						w.key
-					} is black. Both children of the sibling are black. We proceed with case 2.`,
-					xId:
-						x === T.NIL
-							? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
-							: `n-${x.key}`,
-					rotate: null,
+					description: `Node ${x === T.NIL ? "NIL" : x.key} has extra black color, its sibling 
+					${w.key} is black. Both children of the sibling are black. We proceed with case 2.`,
+					xId: x === T.NIL ? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}` : `n-${x.key}`,
 				});
 				w.color = RED;
 				x = x.p;
@@ -272,15 +230,10 @@ function rbDeleteFixup(T, x, steps) {
 				if (w.right.color === BLACK) {
 					steps.push({
 						T: copyTree(T),
-						description: `Node ${
-							x === T.NIL ? "NIL" : x.key
-						} has extra black color and is a left child. Its
-						sibling ${w.key} is black with a red left child and black right child. We
-						proceed with case 3 as a preparation for case 4.`,
-						xId:
-							x === T.NIL
-								? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
-								: `n-${x.key}`,
+						description: `Node ${x === T.NIL ? "NIL" : x.key} has extra black color and is a 
+						left child. Its sibling ${w.key} is black with a red left child and black right child. 
+						We proceed with case 3 as a preparation for case 4.`,
+						xId: x === T.NIL ? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}` : `n-${x.key}`,	
 						rotate: { dir: RIGHT, key: w.key },
 					});
 					w.left.color = BLACK;
@@ -290,14 +243,9 @@ function rbDeleteFixup(T, x, steps) {
 				}
 				steps.push({
 					T: copyTree(T),
-					description: `Node ${
-						x === T.NIL ? "NIL" : x.key
-					} has extra black color and is a left child. Its
-					sibling ${w.key} is black with a red right child. We proceed with case 4.`,
-					xId:
-						x === T.NIL
-							? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
-							: `n-${x.key}`,
+					description: `Node ${x === T.NIL ? "NIL" : x.key} has extra black color and is a left child. 
+					Its sibling ${w.key} is black with a red right child. We proceed with case 4.`,
+					xId: x === T.NIL ? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}` : `n-${x.key}`,		
 					rotate: { dir: LEFT, key: x.p.key },
 				});
 				w.color = x.p.color;
@@ -311,14 +259,9 @@ function rbDeleteFixup(T, x, steps) {
 			if (w.color === RED) {
 				steps.push({
 					T: copyTree(T),
-					description: `Node ${
-						x.key === T.NIL ? "NIL" : x.key
-					} has extra black color, its sibling ${w.key} is red. 
-					We proceed with case 1.`,
-					xId:
-						x === T.NIL
-							? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
-							: `n-${x.key}`,
+					description: `Node ${x.key === T.NIL ? "NIL" : x.key} has extra black color, its 
+					sibling ${w.key} is red. We proceed with case 1.`,
+					xId: x === T.NIL ? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}` : `n-${x.key}`,	
 					rotate: { dir: RIGHT, key: x.p.key },
 				});
 				w.color = BLACK;
@@ -329,15 +272,9 @@ function rbDeleteFixup(T, x, steps) {
 			if (w.right.color === BLACK && w.left.color === BLACK) {
 				steps.push({
 					T: copyTree(T),
-					description: `Node ${
-						x === T.NIL ? "NIL" : x.key
-					} has extra black color, its sibling ${w.key} is
-					black. Both children of the sibling are black. We proceed with case 2.`,
-					xId:
-						x === T.NIL
-							? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
-							: `n-${x.key}`,
-					rotate: null,
+					description: `Node ${x === T.NIL ? "NIL" : x.key} has extra black color, its sibling 
+					${w.key} is black. Both children of the sibling are black. We proceed with case 2.`,
+					xId: x === T.NIL ? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}` : `n-${x.key}`,	
 				});
 				w.color = RED;
 				x = x.p;
@@ -345,15 +282,10 @@ function rbDeleteFixup(T, x, steps) {
 				if (w.left.color === BLACK) {
 					steps.push({
 						T: copyTree(T),
-						description: `Node ${
-							x === T.NIL ? "NIL" : x.key
-						} has extra black color and is a right child. Its
-						sibling ${w.key} is black with a red right child and black left child. We
-						proceed with case 3 as a preparation for case 4.`,
-						xId:
-							x === T.NIL
-								? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
-								: `n-${x.key}`,
+						description: `Node ${x === T.NIL ? "NIL" : x.key} has extra black color and is a 
+						right child. Its sibling ${w.key} is black with a red right child and black left 
+						child. We proceed with case 3 as a preparation for case 4.`,
+						xId: x === T.NIL ? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}` : `n-${x.key}`,
 						rotate: { dir: LEFT, key: w.key },
 					});
 					w.right.color = BLACK;
@@ -363,15 +295,9 @@ function rbDeleteFixup(T, x, steps) {
 				}
 				steps.push({
 					T: copyTree(T),
-					description: `Node ${
-						x === T.NIL ? "NIL" : x.key
-					} has extra black color and is a right child. Its sibling ${
-						w.key
-					} is black with a red left child. We proceed with case 4.`,
-					xId:
-						x === T.NIL
-							? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}`
-							: `n-${x.key}`,
+					description: `Node ${x === T.NIL ? "NIL" : x.key} has extra black color and is a right 
+					child. Its sibling ${w.key} is black with a red left child. We proceed with case 4.`,
+					xId: x === T.NIL ? `${x === x.p.left ? "l" : "r"}-nil-${x.p.key}` : `n-${x.key}`,	
 					rotate: { dir: RIGHT, key: x.p.key },
 				});
 				w.color = x.p.color;
@@ -387,7 +313,6 @@ function rbDeleteFixup(T, x, steps) {
 			T: copyTree(T),
 			description: `Node ${x.key} is red with extra black color. We proceed with the base case.`,
 			xId: `n-${x.key}`,
-			rotate: null,
 		});
 		x.color = BLACK;
 	}
