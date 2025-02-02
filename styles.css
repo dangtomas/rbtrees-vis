@@ -131,7 +131,7 @@ select {
 	padding: 4px 8px;
 }
 
-#buttons-wrap button:hover {
+#buttons-wrap button:hover, #import-tree-input-label:hover {
 	color: white;
 	background-color: black;
 }
@@ -144,6 +144,13 @@ select {
 #buttons-wrap input[type="checkbox"] {
 	width: 30px;
 	height: 30px;
+}
+
+#import-tree-input-label {
+	cursor: pointer;
+	padding: 5px 10px !important;
+	background-color: #d7e3f5;
+	border-radius: 7px;
 }
 
 @media only screen and (max-width: 1300px) {

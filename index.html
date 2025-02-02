@@ -93,12 +93,15 @@
 				<button id="delete-button">Delete</button>
 				<button id="finish-operation-button">Finish operation</button>
 				<button id="reset-button">Reset trees</button>
-				<label for="show-nil">Show leaves</label>
-				<input id="show-nil" type="checkbox" checked/>
-			</div>
-			<div>
 				<button id="generate-random-button">Generate random</button>
 				<button id="fit-trees-button">Fit trees</button>
+			</div>
+			<div>
+				<label id="import-tree-input-label" for="import-tree-input">Import tree</label>
+				<input type="file" id="import-tree-input" accept=".txt" style="display: none;">
+				<button id="export-tree-button">Export tree</button>
+				<label for="show-nil">Show leaves</label>
+				<input id="show-nil" type="checkbox" checked/>
 				<label for="enable-rotate-animation">Enable rotate animation</label>
 				<input id="enable-rotate-animation" type="checkbox" checked/>
 				<label for="auto-fit-trees">Auto-fit trees</label>

@@ -197,8 +197,8 @@ function llrbDeleteRec(T, x, key, steps) {
 		if (x.left.color === RED) {
 			steps.push({
 				T: copyTree(T),
-				description: `Top-bottom pass: ${key} ${key > x.key ? ">" : "="} ${x.key}. We move 
-				the left red child to the right, since we will move to the right anyway.`,
+				description: `Top-bottom pass: ${key} >= ${x.key}. We use 
+				the left red child and move it to the right instead of using moveRedRight explicitly.`,
 				xId: `n-${x.key}`,
 				rotate: { dir: RIGHT, key: x.key },
 			});
@@ -217,7 +217,7 @@ function llrbDeleteRec(T, x, key, steps) {
 		if (x.right.color !== RED && x.right.left.color !== RED) {
 			steps.push({
 				T: copyTree(T),
-				description: `Top-bottom pass: ${key} ${key > x.key ? ">" : "="} ${x.key}. We move 
+				description: `Top-bottom pass: ${key} >= ${x.key}. We move 
 				a red node to the right.`,
 				xId: `n-${x.key}`,
 			});

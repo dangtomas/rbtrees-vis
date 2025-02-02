@@ -4,6 +4,8 @@ import { LLRBTree, llrbInsert, llrbDelete } from "./js-impl/llrb.js";
 import { RB23Tree, rb23Insert, rb23Delete } from "./js-impl/paritySeeking23Rb.js";
 import { RB234Tree, rb234Insert, rb234Delete } from "./js-impl/paritySeeking234Rb.js";
 
+let operations = []
+
 const cySettings = {
 	style: [
 		{
@@ -301,6 +303,7 @@ resetButton.addEventListener("click", () => {
 		visualizeTree(v.T, v.cy, null);
 	});
 	finishedOperation = true;
+	operations = [];
 });
 
 const showLeavesCheckbox = document.getElementById("show-nil");
@@ -370,6 +373,7 @@ insertButton.addEventListener("click", () => {
 			v.previousButton.disabled = true;
 			v.nextButton.disabled = false;
 		});
+		operations.push(`INSERT-${key}\n`);
 	}
 	valueInput.value = "";
 });
@@ -399,6 +403,7 @@ deleteButton.addEventListener("click", () => {
 			v.previousButton.disabled = true;
 			v.nextButton.disabled = false;
 		});
+		operations.push(`DELETE-${key}\n`);
 	}
 	valueInput.value = "";
 });
@@ -457,6 +462,7 @@ generateRandomButton.addEventListener("click", () => {
 		allVariantsInfo.forEach((v) => {
 			v.insert(v.T, randomNumber, []);
 		});
+		operations.push(`INSERT-${randomNumber}\n`);
 	}
 	allVariantsInfo.forEach((v) => {
 		visualizeTree(v.T, v.cy, null);
@@ -480,3 +486,96 @@ const autoFitTreesCheckbox = document.getElementById("auto-fit-trees");
 autoFitTreesCheckbox.addEventListener("change", () => {
 	autoFitTreesEnabled = autoFitTreesCheckbox.checked;
 });
+
+const exportTreeButton = document.getElementById("export-tree-button");
+exportTreeButton.addEventListener("click", () => {
+	if (!finishedOperation) {
+		alert("Finish the current operation before exporting the tree.");
+		return;
+	}
+	const blob = new Blob(operations, { type: "text/plain" });
+
+	const link = document.createElement("a")
+	link.href = URL.createObjectURL(blob);
+	link.download = "rbtree.txt"
+
+	document.body.appendChild(link);
+	link.click();
+	document.body.removeChild(link);
+})
+
+const importTreeInput = document.getElementById("import-tree-input");
+importTreeInput.addEventListener("change", (e1) => {
+	let error = false;
+	if (allVariantsInfo[0].T.root.key !== -1) {
+		alert("Empty the tree before importing another one.");
+		return;
+	}
+	const file = e1.target.files[0]
+	const reader = new FileReader();
+	reader.onload = (e2) => {
+		const importedOps = e2.target.result.split("\n");
+		if (importedOps[importedOps.length - 1] === "") {
+			importedOps.pop();
+		}
+		for (const opArr of importedOps) {
+			const op = opArr.split("-");
+			if (op.length !== 2 || (op[0] !== "INSERT" && op[0] !== "DELETE")) {
+				allVariantsInfo.forEach((v) => {
+					v.T.root = v.T.NIL
+				});
+				alert("Invalid file format.");
+				error = true;
+				break;
+			}
+			const key = Number(op[1]);
+			if (isNaN(key) || key < 0 || !Number.isInteger(key) || key > 999) {
+				allVariantsInfo.forEach((v) => {
+					v.T.root = v.T.NIL
+				});
+				alert("Invalid file format.");
+				error = true;
+				break;
+			}
+			const opType = op[0];
+			if (opType == "INSERT") {
+				if (searchNode(allVariantsInfo[0].T, key) !== allVariantsInfo[0].T.NIL) {
+					allVariantsInfo.forEach((v) => {
+						v.T.root = v.T.NIL
+					});
+					alert("Invalid file format.");
+					error = true;
+					break;
+				}
+				allVariantsInfo.forEach((v) => {
+					v.insert(v.T, key, []);
+				});
+				operations.push(opArr + "\n");
+			} else {
+				if (searchNode(allVariantsInfo[0].T, key) === allVariantsInfo[0].T.NIL) {
+					allVariantsInfo.forEach((v) => {
+						v.T.root = v.T.NIL
+					});
+					alert("Invalid file format.");
+					error = true;
+					break;
+				}
+				allVariantsInfo.forEach((v) => {
+					v.delete(v.T, key, []);
+				});
+				operations.push(opArr + "\n");
+			}
+		}
+		if (!error) {
+			allVariantsInfo.forEach((v) => {
+				visualizeTree(v.T, v.cy, null);
+			});
+			fitTrees();
+			setTimeout(() => {
+				alert("Successfully imported tree.");
+			}, 0)
+		}
+		importTreeInput.value = "";
+	}
+	reader.readAsText(file);
+})
