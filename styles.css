@@ -67,14 +67,14 @@ select {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	font-size: 20px;
 	flex: 1;
 	width: 50%;
-	height: 70px;
+	height: 87px;
 	text-align: center;
 }
 
 .step-description-text {
-	height: 45px;
 	padding: 5px;
 }
 
@@ -85,6 +85,7 @@ select {
 .step-description-buttons button {
 	padding: 1px 3px;
 	margin-left: 5px;
+	font-size: 16px;
 }
 
 #tree-wrapper {
