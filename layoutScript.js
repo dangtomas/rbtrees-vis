@@ -102,6 +102,10 @@ sideToSideButton.addEventListener("click", () => {
 		return;
 	} else {
 		sideToSide = true;
+		if (variant1Current === variant2Current) {
+			variant2Current = variant1Current === "classic-rb" ? "llrb" : "classic-rb";
+			variant2Selector.value = variant2Current;
+		}
 		showVariantDivs(variant2Current, 2);
 		variant2Selector.style.display = "block";
 		singleTreeButton.classList.remove("active-button");

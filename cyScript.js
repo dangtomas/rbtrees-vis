@@ -354,8 +354,8 @@ insertButton.addEventListener("click", () => {
 		return;
 	}
 	const key = Number(valueInput.value);
-	if (isNaN(key) || key < 0 || !Number.isInteger(key) || key > 999) {
-		alert("Enter a positive integer.");
+	if (isNaN(key) || key < 1 || !Number.isInteger(key) || key > 999) {
+		alert("Enter a positive integer in range 1-999.");
 	} else if ( searchNode(allVariantsInfo[0].T, key) !== allVariantsInfo[0].T.NIL) {
 		alert("Node with such key already exists in the tree.");
 	} else if (finishedOperation === false) {
@@ -384,8 +384,8 @@ deleteButton.addEventListener("click", () => {
 		return;
 	}
 	const key = Number(valueInput.value);
-	if (isNaN(key) || key < 0 || !Number.isInteger(key)) {
-		alert("Enter a positive integer.");
+	if (isNaN(key) || key < 1 || !Number.isInteger(key) || key > 999) {
+		alert("Enter a positive integer in range 1-999");
 	} else if (searchNode(allVariantsInfo[0].T, key) === allVariantsInfo[0].T.NIL) {
 		alert("Node with such key doesn't exist in the tree.");
 	} else if (finishedOperation === false) {
@@ -459,6 +459,7 @@ generateRandomButton.addEventListener("click", () => {
 		while (added.has(randomNumber)) {
 			randomNumber = Math.floor(Math.random() * 999 + 1);
 		}
+		added.add(randomNumber);
 		allVariantsInfo.forEach((v) => {
 			v.insert(v.T, randomNumber, []);
 		});
@@ -481,7 +482,7 @@ enableRotateAnimationCheckbox.addEventListener("change", () => {
 	rotateAnimationEnabled = enableRotateAnimationCheckbox.checked;
 });
 
-let autoFitTreesEnabled = false;
+let autoFitTreesEnabled = true;
 const autoFitTreesCheckbox = document.getElementById("auto-fit-trees");
 autoFitTreesCheckbox.addEventListener("change", () => {
 	autoFitTreesEnabled = autoFitTreesCheckbox.checked;
@@ -579,3 +580,8 @@ importTreeInput.addEventListener("change", (e1) => {
 	}
 	reader.readAsText(file);
 })
+
+const singleTreeButton = document.getElementById("single-tree");
+const sideToSideButton = document.getElementById("side-to-side");
+singleTreeButton.addEventListener("click", () => setTimeout(() => fitTrees(), 150));
+sideToSideButton.addEventListener("click", () => setTimeout(() => fitTrees(), 150));
