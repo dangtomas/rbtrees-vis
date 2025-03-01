@@ -583,5 +583,5 @@ importTreeInput.addEventListener("change", (e1) => {
 
 const singleTreeButton = document.getElementById("single-tree");
 const sideToSideButton = document.getElementById("side-to-side");
-singleTreeButton.addEventListener("click", () => setTimeout(() => fitTrees(), 150));
-sideToSideButton.addEventListener("click", () => setTimeout(() => fitTrees(), 150));
+singleTreeButton.addEventListener("click", () => setTimeout(() => fitTrees(), 200));
+sideToSideButton.addEventListener("click", () => setTimeout(() => fitTrees(), 200));
