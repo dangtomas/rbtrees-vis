@@ -67,9 +67,10 @@ select {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	font-size: 20px;
+	font-size: 18px;
 	flex: 1;
 	width: 50%;
+	min-height: 90px;
 	text-align: center;
 }
 
@@ -90,7 +91,7 @@ select {
 #tree-wrapper {
 	display: flex;
 	width: 95vw;
-	height: 70vh;
+	height: 68vh;
 	margin: auto;
 	border: 2px solid black;
 	border-radius: 12px;

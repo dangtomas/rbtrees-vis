@@ -45,7 +45,7 @@ function hideVariantDivs(variant) {
 function showVariantDivs(variant, order) {
 	const toShowDivs = getVariantDivs(variant);
 	toShowDivs.forEach((div) => {
-		div.style.display = "block";
+		div.style.display = "flex";
 		div.style.order = order
 	})
 }

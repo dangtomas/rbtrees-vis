@@ -585,3 +585,26 @@ const singleTreeButton = document.getElementById("single-tree");
 const sideToSideButton = document.getElementById("side-to-side");
 singleTreeButton.addEventListener("click", () => setTimeout(() => fitTrees(), 200));
 sideToSideButton.addEventListener("click", () => setTimeout(() => fitTrees(), 200));
+
+const variantSelectors = [
+	document.getElementById("variant1-selector"), 
+	document.getElementById("variant2-selector")
+]
+variantSelectors.forEach(s => {
+	s.addEventListener("change", () => {
+		setTimeout(() => {switch(s.value) {
+			case "classic-rb":
+				allVariantsInfo[0].cy.fit();
+				break;
+			case "llrb":
+				allVariantsInfo[1].cy.fit();
+				break;
+			case "parity-seeking-2-3rb":
+				allVariantsInfo[2].cy.fit();
+				break;
+			case "parity-seeking-2-3-4rb":
+				allVariantsInfo[3].cy.fit();
+				break;
+		}}, 110)
+	})
+})
