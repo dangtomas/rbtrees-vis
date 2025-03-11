@@ -143,7 +143,7 @@ function llrbDeleteMin(T, x, steps) {
 	if (x.left.color !== RED && x.left.left.color !== RED) {
 		steps.push({
 			T: copyTree(T),
-			description: "Deleting the successor: We need to move a red node to the left.",
+			description: "Deleting the successor: We need to move a red node to the left so we can proceed there.",
 			xId: `n-${x.key}`,
 		});
 		x = moveRedLeft(T, x, steps);
@@ -182,7 +182,7 @@ function llrbDeleteRec(T, x, key, steps) {
 		if (x.left.color !== RED && x.left.left.color !== RED) {
 			steps.push({
 				T: copyTree(T),
-				description: `Top-bottom pass: ${key} < ${x.key}, we need to move a red node to the left.`,
+				description: `Top-bottom pass: ${key} < ${x.key}, we move a red node to the left so we can proceed there.`,
 				xId: `n-${x.key}`,
 			});
 			x = moveRedLeft(T, x, steps);
@@ -217,7 +217,7 @@ function llrbDeleteRec(T, x, key, steps) {
 			steps.push({
 				T: copyTree(T),
 				description: `Top-bottom pass: ${key} >= ${x.key}. We move 
-				a red node to the right.`,
+				a red node to the right so we can proceed there.`,
 				xId: `n-${x.key}`,
 			});
 			x = moveRedRight(T, x, steps);
@@ -228,7 +228,7 @@ function llrbDeleteRec(T, x, key, steps) {
 			steps.push({
 				T: copyTree(T),
 				description: `Top-bottom pass: ${key} = ${x.key}. We replace the node with its successor 
-				${succ.key}, and delete the successor.`,
+				${succ.key}, and move to the right to delete the successor.`,
 				xId: `n-${x.key}`,
 			});
 			x.key = succ.key;
