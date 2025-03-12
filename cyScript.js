@@ -193,7 +193,7 @@ function visualizeTree(T, cy, xId) {
 	cy.layout({ 
 		name: "dagre", 
 		rankSep: 45, 
-		nodeSep: 40, fit: 
+		nodeSep: 35, fit: 
 		autoFitTreesEnabled 
 	}).run();
 	cy.nodes('[type = "nil"]').forEach(n => {
@@ -482,7 +482,7 @@ enableRotateAnimationCheckbox.addEventListener("change", () => {
 	rotateAnimationEnabled = enableRotateAnimationCheckbox.checked;
 });
 
-let autoFitTreesEnabled = true;
+let autoFitTreesEnabled = false;
 const autoFitTreesCheckbox = document.getElementById("auto-fit-trees");
 autoFitTreesCheckbox.addEventListener("change", () => {
 	autoFitTreesEnabled = autoFitTreesCheckbox.checked;
