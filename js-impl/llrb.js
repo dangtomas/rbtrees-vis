@@ -4,11 +4,11 @@ import { leftRotate23, rightRotate23 } from "./paritySeekingDelete.js";
 export class LLRBTree extends RBTree {}
 
 function llrbLeftRotate(T, x) {
-	return leftRotate23(T, x);
+	return leftRotate23(T, x); // kvuli vizualizaci je nutne mit nastavene rodicovske uzly
 }
 
 function llrbRightRotate(T, x) {
-	return rightRotate23(T, x);
+	return rightRotate23(T, x); // kvuli vizualizaci je nutne mit nastavene rodicovske uzly
 }
 
 function llrbFixup(T, x, steps) {
