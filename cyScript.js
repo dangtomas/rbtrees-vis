@@ -608,3 +608,5 @@ variantSelectors.forEach(s => {
 		}}, 110)
 	})
 })
+
+generateRandomButton.click();
