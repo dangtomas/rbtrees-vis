@@ -130,6 +130,7 @@ select {
 #buttons-wrap input[type="text"] {
 	font-size: 20px;
 	padding: 4px 8px;
+	border: 1px solid black;
 }
 
 #buttons-wrap button:hover, #import-tree-input-label:hover {
