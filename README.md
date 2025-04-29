@@ -1,4 +1,4 @@
-Visualisation of multiple different variants of red-black trees as a part of a bachelor thesis.
+Visualisation tool for multiple different variants of red-black trees as a part of a bachelor thesis.
 
 Credits:
 
