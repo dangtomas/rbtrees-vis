@@ -1,4 +1,4 @@
-import { RED, BLACK, LEFT, RIGHT, createNode, colorFlip, copyTree } from "./utils.js";
+import { RED, BLACK, LEFT, RIGHT, colorFlip, copyTree, binarySearchTreeInsert } from "./utils.js";
 import { ParitySeekingRBTree, leftRotate23, rightRotate23, paritySeekingDelete } from "./paritySeekingDelete.js";
 
 export class RB234Tree extends ParitySeekingRBTree {}
@@ -8,25 +8,7 @@ export function rb234Insert(T, key, steps) {
 		T: copyTree(T),
 		description: `Adding a red node with key ${key} according to rules of binary search trees.`,
 	});
-	const z = createNode(T, key);
-	let x = T.root;
-	let y = T.NIL;
-	while (x !== T.NIL) {
-		y = x;
-		if (z.key < x.key) {
-			x = x.left;
-		} else {
-			x = x.right;
-		}
-	}
-	z.p = y;
-	if (y === T.NIL) {
-		T.root = z;
-	} else if (z.key < y.key) {
-		y.left = z;
-	} else {
-		y.right = z;
-	}
+	const z = binarySearchTreeInsert(T, key)
 	rb234InsertFixup(T, z, steps);
 	steps.push({
 		T,

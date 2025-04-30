@@ -1,6 +1,5 @@
 import {
-	RED, BLACK, LEFT, RIGHT, RBTree, createNode, searchNode, minimum,
-	rbTransplant, copyTree,
+	RED, BLACK, LEFT, RIGHT, RBTree, copyTree, binarySearchTreeInsert, binarySearchTreeDelete
 } from "./utils.js";
 
 export class ClassicRBTree extends RBTree {}
@@ -46,25 +45,7 @@ export function rbInsert(T, key, steps) {
 		T: copyTree(T),
 		description: `Adding a red node with key ${key} according to rules of binary search trees.`,
 	});
-	const z = createNode(T, key);
-	let x = T.root;
-	let y = T.NIL;
-	while (x !== T.NIL) {
-		y = x;
-		if (z.key < x.key) {
-			x = x.left;
-		} else {
-			x = x.right;
-		}
-	}
-	z.p = y;
-	if (y === T.NIL) {
-		T.root = z;
-	} else if (z.key < y.key) {
-		y.left = z;
-	} else {
-		y.right = z;
-	}
+	const z = binarySearchTreeInsert(T, key)
 	rbInsertFixup(T, z, steps);
 	steps.push({
 		T,
@@ -165,32 +146,7 @@ export function rbDelete(T, key, steps) {
 		T: copyTree(T),
 		description: `Deleting node with key ${key} according to rules of binary search trees.`,
 	});
-	const z = searchNode(T, key);
-	let y = z;
-	let yOriginalColor = y.color;
-	let x;
-	if (z.left === T.NIL) {
-		x = z.right;
-		rbTransplant(T, z, z.right);
-	} else if (z.right === T.NIL) {
-		x = z.left;
-		rbTransplant(T, z, z.left);
-	} else {
-		y = minimum(T, z.right);
-		yOriginalColor = y.color;
-		x = y.right;
-		if (y !== z.right) {
-			rbTransplant(T, y, y.right);
-			y.right = z.right;
-			y.right.p = y;
-		} else {
-			x.p = y;
-		}
-		rbTransplant(T, z, y);
-		y.left = z.left;
-		y.left.p = y;
-		y.color = z.color;
-	}
+	const { yOriginalColor, x } = binarySearchTreeDelete(T, key)
 	if (yOriginalColor === BLACK) {
 		rbDeleteFixup(T, x, steps);
 	}

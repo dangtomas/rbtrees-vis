@@ -1,4 +1,4 @@
-import { RED, BLACK, LEFT, RIGHT, RBTree, searchNode, minimum, rbTransplant, copyTree} from "./utils.js";
+import { RED, BLACK, LEFT, RIGHT, RBTree, copyTree, binarySearchTreeDelete} from "./utils.js";
 
 export class ParitySeekingRBTree extends RBTree {}
 
@@ -49,32 +49,7 @@ export function paritySeekingDelete(T, key, steps) {
 		T: copyTree(T),
 		description: `Deleting node with key ${key} according to rules of binary search trees.`,
 	});
-	const z = searchNode(T, key);
-	let y = z;
-	let yOriginalColor = y.color;
-	let x;
-	if (z.left === T.NIL) {
-		x = z.right;
-		rbTransplant(T, z, z.right);
-	} else if (z.right === T.NIL) {
-		x = z.left;
-		rbTransplant(T, z, z.left);
-	} else {
-		y = minimum(T, z.right);
-		yOriginalColor = y.color;
-		x = y.right;
-		if (y !== z.right) {
-			rbTransplant(T, y, y.right);
-			y.right = z.right;
-			y.right.p = y;
-		} else {
-			x.p = y;
-		}
-		rbTransplant(T, z, y);
-		y.left = z.left;
-		y.left.p = y;
-		y.color = z.color;
-	}
+	const { yOriginalColor, x } = binarySearchTreeDelete(T, key)
 	if (yOriginalColor === BLACK) {
 		paritySeekingFixup(T, x, steps);
 	}

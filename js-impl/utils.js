@@ -86,3 +86,56 @@ function copyTreeRec(T, node, newT, p) {
 
 	return newNode;
 }
+
+export function binarySearchTreeInsert(T, key) {
+	const z = createNode(T, key);
+	let x = T.root;
+	let y = T.NIL;
+	while (x !== T.NIL) {
+		y = x;
+		if (z.key < x.key) {
+			x = x.left;
+		} else {
+			x = x.right;
+		}
+	}
+	z.p = y;
+	if (y === T.NIL) {
+		T.root = z;
+	} else if (z.key < y.key) {
+		y.left = z;
+	} else {
+		y.right = z;
+	}
+	return z;
+}
+
+export function binarySearchTreeDelete(T, key) {
+	const z = searchNode(T, key);
+	let y = z;
+	let yOriginalColor = y.color;
+	let x;
+	if (z.left === T.NIL) {
+		x = z.right;
+		rbTransplant(T, z, z.right);
+	} else if (z.right === T.NIL) {
+		x = z.left;
+		rbTransplant(T, z, z.left);
+	} else {
+		y = minimum(T, z.right);
+		yOriginalColor = y.color;
+		x = y.right;
+		if (y !== z.right) {
+			rbTransplant(T, y, y.right);
+			y.right = z.right;
+			y.right.p = y;
+		} else {
+			x.p = y;
+		}
+		rbTransplant(T, z, y);
+		y.left = z.left;
+		y.left.p = y;
+		y.color = z.color;
+	}
+	return {yOriginalColor, x}
+}
