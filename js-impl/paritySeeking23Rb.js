@@ -8,26 +8,26 @@ export function rb23Insert(T, key, steps) {
 		T: copyTree(T),
 		description: `Adding a red node with key ${key} according to rules of binary search trees.`,
 	});
-	const x = createNode(T, key);
-	let z = T.root;
+	const z = createNode(T, key);
+	let x = T.root;
 	let y = T.NIL;
-	while (z !== T.NIL) {
-		y = z;
-		if (x.key < z.key) {
-			z = z.left;
+	while (x !== T.NIL) {
+		y = x;
+		if (z.key < x.key) {
+			x = x.left;
 		} else {
-			z = z.right;
+			x = x.right;
 		}
 	}
-	x.p = y;
+	z.p = y;
 	if (y === T.NIL) {
-		T.root = x;
-	} else if (x.key < y.key) {
-		y.left = x;
+		T.root = z;
+	} else if (z.key < y.key) {
+		y.left = z;
 	} else {
-		y.right = x;
+		y.right = z;
 	}
-	rb23InsertFixup(T, x, steps);
+	rb23InsertFixup(T, z, steps);
 	steps.push({
 		T,
 		description: "Done.",
