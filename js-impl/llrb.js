@@ -85,25 +85,30 @@ function llrbInsertRec(T, x, z, p, steps) {
 function moveRedLeft(T, x, steps) {
 	steps.push({
 		T: copyTree(T),
-		description: "Moving red node to the left: Color flip.",
+		description: "Moving red node to the left: color flip.",
 		xId: `n-${x.key}`,
 	});
 	colorFlip(T, x);
 	if (x.right.left.color === RED) {
 		steps.push({
 			T: copyTree(T),
-			description: "Moving red node to the left, correction: First rotation.",
+			description: "Moving red node to the left, correction: first rotation.",
 			xId: `n-${x.key}`,
 			rotate: { dir: RIGHT, key: x.right.key },
 		});
 		x.right = llrbRightRotate(T, x.right);
 		steps.push({
 			T: copyTree(T),
-			description: "Moving red node to the left, correction: Second rotation and color flip.",
+			description: "Moving red node to the left, correction: second rotation.",
 			xId: `n-${x.key}`,
 			rotate: { dir: LEFT, key: x.key },
 		});
 		x = llrbLeftRotate(T, x);
+		steps.push({
+			T: copyTree(T),
+			description: "Moving red node to the left, correction: color flip.",
+			xId: `n-${x.key}`,
+		});
 		colorFlip(T, x);
 	}
 	return x;
@@ -119,11 +124,16 @@ function moveRedRight(T, x, steps) {
 	if (x.left.left.color === RED) {
 		steps.push({
 			T: copyTree(T),
-			description: "Moving red node to the right, correction: rotation and color flip.",
+			description: "Moving red node to the right, correction: right rotation.",
 			xId: `n-${x.key}`,
 			rotate: { dir: RIGHT, key: x.key },
 		});
 		x = llrbRightRotate(T, x);
+		steps.push({
+			T: copyTree(T),
+			description: "Moving red node to the right, correction: color flip.",
+			xId: `n-${x.key}`,
+		});
 		colorFlip(T, x);
 	}
 	return x;

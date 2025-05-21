@@ -117,7 +117,7 @@ function case2Fixup(T, x, z, steps) {
 			if (z.left.color === BLACK) {
 				steps.push({
 					T: copyTree(T),
-					description: `Case 2 Fixup: First rotation to align the red nodes.`,
+					description: `Case 2 Fixup: first rotation to align the red nodes.`,
 					xId: `n-${x.key}`,
 					rotate: { dir: LEFT, key: z.key },
 				});
@@ -125,7 +125,7 @@ function case2Fixup(T, x, z, steps) {
 			}
 			steps.push({
 				T: copyTree(T),
-				description: `Case 2 Fixup: Final rotation and switching colors.`,
+				description: `Case 2 Fixup: final rotation.`,
 				xId: `n-${x.key}`,
 				rotate: { dir: RIGHT, key: x.key },
 			});
@@ -134,7 +134,7 @@ function case2Fixup(T, x, z, steps) {
 			if (z.right.color === BLACK) {
 				steps.push({
 					T: copyTree(T),
-					description: `Case 2 Fixup: First rotation to align the red nodes.`,
+					description: `Case 2 Fixup: first rotation to align the red nodes.`,
 					xId: `n-${x.key}`,
 					rotate: { dir: RIGHT, key: z.key },
 				});
@@ -142,13 +142,18 @@ function case2Fixup(T, x, z, steps) {
 			}
 			steps.push({
 				T: copyTree(T),
-				description: `Case 2 Fixup: Final rotation and switching colors.`,
+				description: `Case 2 Fixup: final rotation.`,
 				xId: `n-${x.key}`,
 				rotate: { dir: LEFT, key: x.key },
 			});
 			leftRotate23(T, x);
 		}
 		x = x.p;
+		steps.push({
+				T: copyTree(T),
+				description: `Case 2 Fixup: switching colors.`,
+				xId: `n-${x.key}`,
+			});
 		x.left.color = BLACK;
 		x.right.color = BLACK;
 		x = T.root;
