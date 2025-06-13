@@ -509,7 +509,8 @@ const importTreeInput = document.getElementById("import-tree-input");
 importTreeInput.addEventListener("change", (e1) => {
 	let error = false;
 	if (allVariantsInfo[0].T.root.key !== -1) {
-		alert("Empty the tree before importing another one.");
+        alert("Empty the tree before importing another one.");
+        importTreeInput.value = "";
 		return;
 	}
 	const file = e1.target.files[0]
