@@ -108,6 +108,42 @@
 				<input id="auto-fit-trees" type="checkbox"/>
 			</div>
 		</div>
+        <div id="guide">
+            <h2>Visualizer usage guide</h2>
+            <p>For the IB002 course, select <i>Single tree variant</i> in the top right corner and choose <i>Classic RB Trees</i>. The cases are identical as presented in the lecture.</p>
+            <p>The visualiser operates in two main states:</p>
+            <ol>
+                <li>
+                    <h4>Waiting for an operation</h4>
+                    <ul>
+                        <li>This is the default state when the visualizer starts.</li>
+                        <li>In this state, you can either <i>Insert</i> or <i>Delete</i> an element identified by integer key. After selecting an operation, the visualiser transitions to the <i>Operation in progress</i> state.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h4>Operation in progress</h4>
+                    <ul>
+                        <li>The selected operation is now actively being executed and visualized.</li>
+                        <li>In the top bar, the operation can be processed step by step in both directions.</li>
+                        <li>Each step is accompanied by explanations and animations.</li>
+                        <li>The element affected by the current action is marked with <i>x</i>.</li>
+                        <li>The operation can be concluded using the <i>Finish operation</i> button. The visualizer then returns to the <i>Waiting for an operation</i> state.</li>
+                    </ul>
+                </li>
+            </ol>
+            <p>The canvases on which the trees are displayed can be panned and zoomed. When an element is inserted or deleted, the operation is performed on all tree variants, and they can be switched between at any time. The tool also supports a side-to-side mode, allowing two tree variants to be displayed next to each other, making it easy to compare individual operations as they are performed. </p>
+            <p>Other settings and options:
+            <ul>
+                <li><i>Reset trees</i> – Deletes the current tree, returns to <i>Waiting for an operation state</i>.</li>
+                <li><i>Generate random</i> – Generates a random tree with 15 elements.</li>
+                <li><i>Fit trees</i> – Adjusts the canvas so that the entire tree is visible and centered.</li>
+                <li><i>Show leaves</i> – Toggles the visibility of <i>NIL</i> nodes. It is recommended to keep this option enabled for easier understanding of individual steps.</li>
+                <li><i>Auto-fit trees</i> – Automatically applies the <i>Fit trees</i> functionality after each operation step.</li>
+                <li><i>Enable rotate animation</i> – Determines whether rotation animations are performed during specific operation steps.</li>
+                <li><i>Export/import tree</i> – Allows to export/import trees through .txt files, where each line contains a pair OPERATION-KEY.</li>
+            </ul>
+            </p>
+        </div>
 		<script src="layoutScript.js"></script>
 		<script type="module" src="cyScript.js"></script>
 	</body>

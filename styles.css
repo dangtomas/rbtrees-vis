@@ -155,6 +155,28 @@ select {
 	border-radius: 7px;
 }
 
+#guide {
+    padding: 20px 30px;
+}
+
+#guide p {
+    font-size: 20px;
+    padding: 10px 0px;
+}
+
+#guide ol, #guide ul {
+    font-size: 20px;
+    padding: 5px 20px;
+}
+
+#guide ol>li {
+    padding: 10px;
+}
+
+#guide ul>li {
+    padding: 5px;
+}
+
 @media only screen and (max-width: 1300px) {
 	#wrapper {
 		flex-direction: column;
