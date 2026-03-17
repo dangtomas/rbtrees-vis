@@ -482,7 +482,7 @@ enableRotateAnimationCheckbox.addEventListener("change", () => {
 	rotateAnimationEnabled = enableRotateAnimationCheckbox.checked;
 });
 
-let autoFitTreesEnabled = false;
+let autoFitTreesEnabled = true;
 const autoFitTreesCheckbox = document.getElementById("auto-fit-trees");
 autoFitTreesCheckbox.addEventListener("change", () => {
 	autoFitTreesEnabled = autoFitTreesCheckbox.checked;
