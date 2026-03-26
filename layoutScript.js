@@ -114,3 +114,11 @@ sideToSideButton.addEventListener("click", () => {
 			"linear-gradient(#000, #000) no-repeat center/1px 100%")
 	}
 });
+
+// start with single tree mode
+sideToSide = false;
+hideVariantDivs(variant2Current);
+variant2Selector.style.display = "none";
+sideToSideButton.classList.remove("active-button");
+singleTreeButton.classList.add("active-button");
+variantWrappers.forEach((w) => w.style.background = "none");
